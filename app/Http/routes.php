@@ -41,6 +41,8 @@ Route::group(['prefix' => 'app', 'as' => 'app.', 'namespace' => 'App', 'middlewa
 
         Route::get('/edit/{id}', ['as' => 'edit', 'uses' => 'DemandController@edit']);
 
+        Route::get('/show/{id}', ['as' => 'show', 'uses' => 'DemandController@show']);
+
         Route::post('/update', ['as' => 'update', 'uses' => 'DemandController@update']);
 
     });

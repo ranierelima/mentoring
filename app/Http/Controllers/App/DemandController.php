@@ -46,7 +46,8 @@ class DemandController extends Controller
     public function __construct(DemandRepositoryEloquent $demandRepository,
                                 UserRepositoryEloquent $userRepository,
                                 DemandService $demandService,
-                                PerfomanceRepositoryEloquent $perfomanceRepositoryEloquent, ActRepositoryEloquent $actRepositoryEloquent)
+                                PerfomanceRepositoryEloquent $perfomanceRepositoryEloquent,
+                                ActRepositoryEloquent $actRepositoryEloquent)
     {
 
         $this->demandRepository = $demandRepository;
@@ -94,4 +95,11 @@ class DemandController extends Controller
         return redirect()->route('app.demand.index');
     }
 
+    public function show($id)
+    {
+        $demand = $this->demandRepository->find($id);
+        $act = $this->actRepositoryEloquent->findByField('demand_id', $id);
+
+        return view('demandas.show', compact('demand', 'act'));
+    }
 }

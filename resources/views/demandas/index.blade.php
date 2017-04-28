@@ -54,7 +54,7 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <a href=""><button class="btn btn-success btn-sm">Visualizar</button></a>
+                                                    <a href="{{ route('app.demand.show', $demand->id)  }}"><button class="btn btn-success btn-sm">Visualizar</button></a>
 
                                                     @if(Auth::check())
                                                         @if(Auth::user()->roles == 1)
