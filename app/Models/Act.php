@@ -10,7 +10,7 @@ class Act extends Model implements Transformable
 {
     use TransformableTrait;
 
-    protected $fillable = ['area', 'demand_id'];
+    protected $fillable = ['area', 'demand_id', 'type'];
 
         public function demand()
     {

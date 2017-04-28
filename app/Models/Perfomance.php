@@ -10,11 +10,7 @@ class Perfomance extends Model implements Transformable
 {
     use TransformableTrait;
 
-    protected $fillable = ['area'];
+    protected $fillable = ['area', 'type'];
 
-//    public function user()
-//    {
-//        return $this->hasOne(User::class, 'user_id');
-//    }
 
 }

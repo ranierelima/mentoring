@@ -18,7 +18,8 @@ class Demand extends Model implements Transformable
         'email',
         'student',
         'user_id',
-        'perfomance_id'
+        'perfomance_id',
+        'mentor'
     ];
 
 

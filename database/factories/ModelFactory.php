@@ -34,7 +34,8 @@ $factory->define(Mentor\Models\Demand::class, function (Faker\Generator $faker) 
 $factory->define(Mentor\Models\Perfomance::class, function (Faker\Generator $faker) {
 
     return [
-       'area' => $faker->jobTitle
+       'area' => $faker->jobTitle,
+        'type' => $faker->colorName
     ];
 });
 

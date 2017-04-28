@@ -16,7 +16,7 @@ class CreateActTable extends Migration
             $table->increments('id');
 
             $table->string('area');
-
+            $table->string('type')->nullable();
             $table->integer('demand_id')->unsigned();
             $table->foreign('demand_id')->references('id')->on('demands');
 

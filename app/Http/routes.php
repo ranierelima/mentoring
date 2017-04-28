@@ -11,6 +11,11 @@
 |
 */
 
+Route::get('/', function () {
+    return redirect()->route('login.index');
+});
+
+
 Route::group(['prefix' => 'login', 'as' => 'login.'], function () {
 
     Route::get('/', ['as' => 'index', 'uses' => 'LoginController@index']);
@@ -38,7 +43,18 @@ Route::group(['prefix' => 'app', 'as' => 'app.', 'namespace' => 'App', 'middlewa
 
         Route::post('/update', ['as' => 'update', 'uses' => 'DemandController@update']);
 
+    });
+
+    Route::group(['prefix' => 'area', 'as' => 'area.'], function () {
+
+        Route::get('/', ['as' => 'index', 'uses' => 'AreaController@index']);
+
+        Route::get('/create', ['as' => 'create', 'uses' => 'AreaController@create']);
+
+        Route::post('/store', ['as' => 'store', 'uses' => 'AreaController@store']);
+
 
     });
 
 });
+

@@ -18,6 +18,7 @@ class CreateDemandsTable extends Migration
             $table->string('subject');
             $table->string('email');
             $table->text('doubt');
+            $table->integer('mentor')->nullable();
             $table->text('file')->nullable();
             $table->string('status')->default(1);
             $table->string('student');

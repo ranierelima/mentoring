@@ -11,6 +11,7 @@ namespace Mentor\Services;
 
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Mentor\Repositories\ActRepositoryEloquent;
 use Mentor\Repositories\DemandRepositoryEloquent;
 use Mentor\Repositories\PerfomanceRepositoryEloquent;
@@ -53,7 +54,12 @@ class DemandService
             $Who = Auth::user();
             try {
                 //Pego as demandas usando o _id do cara logado
-                $demand = $this->demandRepository->findByField('user_id', $Who->id);
+                if(Auth::user()->roles == 1):
+                    $demand = $this->demandRepository->findByField('user_id', $Who->id);
+                else:
+                    $demand = $this->demandRepository->findByField('mentor', $Who->id);
+                endif;
+
                 return $demand;
             } catch (QueryException $q) {
                 $q->getMessage();
@@ -65,7 +71,19 @@ class DemandService
     public function myDemandsCreate(array $data)
     {
 
+        //Criando a demanda e selecionar o mentor vs qtd
+
+        //Ativa os filtros ??
+        $Mentor = $this->_filterIsLowerUserDemands();
+        //Formata meu builder
+        $idMentor = $this->formatMyBuildQuery($Mentor);
+
         try {
+
+            //Atualizando a qtd do mentor
+            $selectMentor = $this->userRepository->find($idMentor);
+            $selectMentor->qtd = $selectMentor->qtd + 1;
+            $selectMentor->save();
 
             $d = $this->demandRepository->create([
                 'title' => $data['title'],
@@ -73,6 +91,7 @@ class DemandService
                 'doubt' => $data['doubt'],
                 'student' => $data['student'],
                 'email' => $data['email'],
+                'mentor' => $selectMentor->id,
                 'user_id' => $this->getMyUserById()
             ]);
 
@@ -101,4 +120,44 @@ class DemandService
         endif;
     }
 
+    protected function _filterJoinUserInDemands()
+    {
+        return $HasDemand = DB::table('users')
+                ->join('demands', 'users.id', '=', 'demands.user_id')
+                ->select('users.*', 'demands.*')
+                ->get();
+
+    }
+
+    protected function _filterHasUserDemandsByQtd()
+    {
+        return $HasQtd = DB::table('users')
+                ->select('*')
+                ->where('qtd', '>=', 1)
+                ->groupBy('id')
+                ->get();
+    }
+
+    protected function _filterIsLowerUserDemands()
+    {
+        try {
+            //FIXME E se não tiver o usuário com determiada qtd?
+            $verifyUserQtd = $users = DB::table('users')->count();
+            if($verifyUserQtd):
+                return DB::table('users')
+                    ->where('qtd', DB::raw("(select min(qtd) from users where roles = 2)"))
+                    ->get();
+            endif;
+        } catch(QueryException $exception) {
+            $exception->getMessage();
+        }
+    }
+
+    private function formatMyBuildQuery(array $stdClass)
+    {
+        foreach ($stdClass as $myItems)
+        {
+            return $myItems->id;
+        }
+    }
 }
