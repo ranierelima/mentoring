@@ -16,8 +16,8 @@
                     <div class="box-header">
                         <h3 class="box-title">Listagem de demandas</h3>
 
-                       @if(Auth::check())
-                           @if(Auth::user()->roles == 1)
+                        @if(Auth::check())
+                            @if(Auth::user()->roles == 1)
                                 <a href="{{ route('app.demand.create') }}" class="btn btn-success pull-right" style="margin: 5px;">Nova demanda</a>
                             @endif
                         @endif
@@ -28,60 +28,53 @@
                         @if(count($demands) > 0)
                             <table class="table table-bordered table-striped">
                                 <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Email</th>
-                                        <th>Assunto</th>
-                                        <th>Status</th>
-                                        <th>Ações</th>
-                                    </tr>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Email</th>
+                                    <th>Assunto</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                        @foreach($demands as $demand)
-                                            <tr>
-                                                <td>{{ $demand->id }}</td>
-                                                <td>{{ $demand->email }}</td>
-                                                <td>{{ $demand->subject }}</td>
-                                                <td>
-                                                    @if($demand->status == 1)
-                                                        <div class="label label-info">
-                                                            {{ "Em espera" }}
-                                                        </div>
-                                                    @elseif($demand->status == 2)
-                                                        <div class="label label-primary">
-                                                            {{ "Encaminhado" }}
-                                                        </div>
-                                                    @else
-                                                        <div class="label label-success">
-                                                            {{ "Avaliado" }}
-                                                        </div>
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    <a href="{{ route('app.demand.show', $demand->id)  }}"><button class="btn btn-success btn-sm">Visualizar</button></a>
+                                @foreach($demands as $demand)
+                                    <tr>
+                                        <td>{{ $demand->id }}</td>
+                                        <td>{{ $demand->email }}</td>
+                                        <td>{{ $demand->subject }}</td>
+                                        <td>
+                                            @if($demand->status == 1)
+                                                <div class="label label-info">
+                                                    {{ "Em espera" }}
+                                                </div>
+                                            @elseif($demand->status == 2)
+                                                <div class="label label-primary">
+                                                    {{ "Encaminhado" }}
+                                                </div>
+                                            @else
+                                                <div class="label label-success">
+                                                    {{ "Avaliado" }}
+                                                </div>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('app.demand.show', $demand->id)  }}"><button class="btn btn-success btn-sm">Visualizar</button></a>
 
-                                                    {{--@if(Auth::check())--}}
-                                                        {{--@if(Auth::user()->roles == 1)--}}
-
-                                                    {{--<a href="{{ route('app.demand.edit', $demand->id)  }}"><button class="btn btn-info btn-sm">Editar</button></a>--}}
-                                                        {{--@endif--}}
-                                                    {{--@endif--}}
-
-                                                    @if(Auth::check())
-                                                        @if(Auth::user()->roles == 3 && $demand->status == 1)
+                                            @if(Auth::check())
+                                                @if(Auth::user()->roles == 3 && $demand->status == 1)
                                                     <a href="{{ route('app.demand.encaminhar', $demand->id)  }}"><button class="btn btn-primary btn-sm">Encaminhar</button></a>
-                                                        @endif
-                                                    @endif
-                                                </td>
-                                            </tr>
-                                        @endforeach
+                                                @endif
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                             <!-- Paginação apenas para administrador ou mentor  !! Atualização 04/05 by jm !!  -->
                             @if(Auth::check())
-                                 @if(Auth::user()->roles == 3)
+                                @if(Auth::user()->roles == 3)
                                     {{ $demands->render() }}
-                                 @endif
+                                @endif
                             @endif
 
                         @else
