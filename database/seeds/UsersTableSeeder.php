@@ -17,7 +17,7 @@ class UsersTableSeeder extends Seeder
 
         User::create([
             'name' => 'Administration',
-            'email' => 'joaomarcusjesus@gmail.com',
+            'email' => 'adm@gmail.com',
             'password' => bcrypt(123456),
             'remember_token' => str_random(10),
             'roles' => 3
@@ -25,7 +25,7 @@ class UsersTableSeeder extends Seeder
 
         User::create([
             'name' => 'Mentor',
-            'email' => 'joao.japa@hotmail.com',
+            'email' => 'mentor@gmail.com',
             'password' => bcrypt(123456),
             'remember_token' => str_random(10),
             'roles' => 2
@@ -34,7 +34,7 @@ class UsersTableSeeder extends Seeder
 
         User::create([
             'name' => 'Aluno',
-            'email' => 'jacksonkttibia@hotmail.com',
+            'email' => 'aluno@gmail.com',
             'password' => bcrypt(123456),
             'remember_token' => str_random(10)
         ]);
@@ -43,7 +43,6 @@ class UsersTableSeeder extends Seeder
         factory(User::class, 10)->create()->each(function ($m) {
             for ( $i=0; $i<=5; $i++ ) {
                 $m->demand()->save(factory(Demand::class)->make());
-//                $m->perfomance()->save(factory(Perfomance::class)->make());
             }
         });
 

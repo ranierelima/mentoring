@@ -16,7 +16,7 @@ class Demand extends Model implements Transformable
         'doubt',
         'file',
         'email',
-        'student',
+//        'student',
         'user_id',
         'perfomance_id',
         'mentor'

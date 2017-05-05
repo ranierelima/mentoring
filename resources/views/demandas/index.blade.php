@@ -30,7 +30,7 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Aluno</th>
+                                        <th>Email</th>
                                         <th>Assunto</th>
                                         <th>Status</th>
                                         <th>Ações</th>
@@ -40,12 +40,16 @@
                                         @foreach($demands as $demand)
                                             <tr>
                                                 <td>{{ $demand->id }}</td>
-                                                <td>{{ $demand->student }}</td>
+                                                <td>{{ $demand->email }}</td>
                                                 <td>{{ $demand->subject }}</td>
                                                 <td>
                                                     @if($demand->status == 1)
                                                         <div class="label label-info">
                                                             {{ "Em espera" }}
+                                                        </div>
+                                                    @elseif($demand->status == 2)
+                                                        <div class="label label-primary">
+                                                            {{ "Encaminhado" }}
                                                         </div>
                                                     @else
                                                         <div class="label label-success">
@@ -56,16 +60,16 @@
                                                 <td>
                                                     <a href="{{ route('app.demand.show', $demand->id)  }}"><button class="btn btn-success btn-sm">Visualizar</button></a>
 
-                                                    @if(Auth::check())
-                                                        @if(Auth::user()->roles == 1)
+                                                    {{--@if(Auth::check())--}}
+                                                        {{--@if(Auth::user()->roles == 1)--}}
 
-                                                    <a href="{{ route('app.demand.edit', $demand->id)  }}"><button class="btn btn-info btn-sm">Editar</button></a>
-                                                        @endif
-                                                    @endif
+                                                    {{--<a href="{{ route('app.demand.edit', $demand->id)  }}"><button class="btn btn-info btn-sm">Editar</button></a>--}}
+                                                        {{--@endif--}}
+                                                    {{--@endif--}}
 
                                                     @if(Auth::check())
-                                                        @if(Auth::user()->roles == 2)
-                                                    <a href=""><button class="btn btn-primary btn-sm">Avaliar</button></a>
+                                                        @if(Auth::user()->roles == 3 && $demand->status == 1)
+                                                    <a href="{{ route('app.demand.encaminhar', $demand->id)  }}"><button class="btn btn-primary btn-sm">Encaminhar</button></a>
                                                         @endif
                                                     @endif
                                                 </td>
@@ -73,6 +77,13 @@
                                         @endforeach
                                 </tbody>
                             </table>
+                            <!-- Paginação apenas para administrador ou mentor  !! Atualização 04/05 by jm !!  -->
+                            @if(Auth::check())
+                                 @if(Auth::user()->roles == 3)
+                                    {{ $demands->render() }}
+                                 @endif
+                            @endif
+
                         @else
                             <h2 class="text-center"> Não há solicitação de demandas.</h2>
                         @endif

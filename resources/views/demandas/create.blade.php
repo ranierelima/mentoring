@@ -21,13 +21,13 @@
                     <!-- form start -->
                     <form class="form-horizontal" method="POST" name="form" action="{{ route('app.demand.store') }}">
                         <div class="box-body">
-                            <div class="form-group">
-                                <label for="inputEmail3" class="col-sm-2 control-label">Nome</label>
+                            {{--<div class="form-group">--}}
+                                {{--<label for="inputEmail3" class="col-sm-2 control-label">Nome</label>--}}
 
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="inputEmail3" placeholder="Nome" name="student">
-                                </div>
-                            </div>
+                                {{--<div class="col-sm-6">--}}
+                                    {{--<input type="text" class="form-control" id="inputEmail3" placeholder="Nome" name="student">--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
                             <div class="form-group">
                                 <label for="inputPassword3" class="col-sm-2 control-label">E-mail</label>
 
@@ -36,12 +36,12 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label for="inputPassword3" class="col-sm-2 control-label">Área de atuação</label>
-                                <div class="col-sm-6">
-                                    {!! Form::select('area', $perfomances, null, array('class' => 'form-control')) !!}
-                                </div>
-                            </div>
+                            {{--<div class="form-group">--}}
+                                {{--<label for="inputPassword3" class="col-sm-2 control-label">Área de atuação</label>--}}
+                                {{--<div class="col-sm-6">--}}
+                                    {{--{!! Form::select('area', $perfomances, null, array('class' => 'form-control')) !!}--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
 
                             <div class="form-group">
                                 <label for="inputPassword3" class="col-sm-2 control-label">Título</label>

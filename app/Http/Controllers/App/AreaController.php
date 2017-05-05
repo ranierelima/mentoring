@@ -27,6 +27,11 @@ class AreaController extends Controller
         return view('atuacao.index', compact('perfomances'));
     }
 
+    public function show()
+    {
+        return view('atuacao.show');
+    }
+
     public function create()
     {
         return view('atuacao.create');

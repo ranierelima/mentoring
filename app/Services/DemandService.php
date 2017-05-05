@@ -56,9 +56,16 @@ class DemandService
                 //Pego as demandas usando o _id do cara logado
                 if(Auth::user()->roles == 1):
                     $demand = $this->demandRepository->findByField('user_id', $Who->id);
+                elseif(Auth::user()->roles == 2):
+                     $demand = $this->demandRepository->findByField('mentor', $Who->id);
+                // endif;
                 else:
-                    $demand = $this->demandRepository->findByField('mentor', $Who->id);
+                /** Fluxo atualizado 04/05/2017 by jm **/
+
+                //FIXME USAR PAGINAÇÃO POR USER? -- ?
+                    $demand = $this->demandRepository->paginate(10);
                 endif;
+
 
                 return $demand;
             } catch (QueryException $q) {
@@ -74,31 +81,31 @@ class DemandService
         //Criando a demanda e selecionar o mentor vs qtd
 
         //Ativa os filtros ??
-        $Mentor = $this->_filterIsLowerUserDemands();
+//        $Mentor = $this->_filterIsLowerUserDemands();
         //Formata meu builder
-        $idMentor = $this->formatMyBuildQuery($Mentor);
+//        $idMentor = $this->formatMyBuildQuery($Mentor);
 
         try {
 
-            //Atualizando a qtd do mentor
-            $selectMentor = $this->userRepository->find($idMentor);
-            $selectMentor->qtd = $selectMentor->qtd + 1;
-            $selectMentor->save();
+//            //Atualizando a qtd do mentor
+//            $selectMentor = $this->userRepository->find($idMentor);
+//            // realmente ?? melhor com att?
+//            $selectMentor->qtd = $selectMentor->qtd + 1;
+//            $selectMentor->save();
 
-            $d = $this->demandRepository->create([
+            $this->demandRepository->create([
                 'title' => $data['title'],
                 'subject' => $data['subject'],
                 'doubt' => $data['doubt'],
-                'student' => $data['student'],
-                'email' => $data['email'],
-                'mentor' => $selectMentor->id,
+//                'student' => $data['student'],
+                'email' => $data['email'],     
                 'user_id' => $this->getMyUserById()
             ]);
 
-            $this->actRepositoryEloquent->create([
-                'area' => $data['area'],
-                'demand_id' => $d->id
-            ]);
+//            $this->actRepositoryEloquent->create([
+//                'area' => $data['area'],
+//                'demand_id' => $d->id
+//            ]);
 
 
 

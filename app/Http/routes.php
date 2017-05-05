@@ -37,7 +37,18 @@ Route::group(['prefix' => 'app', 'as' => 'app.', 'namespace' => 'App', 'middlewa
 
         Route::get('/create', ['as' => 'create', 'uses' => 'DemandController@create']);
 
+        //Mudar verbo
+        Route::post('/responder', ['as' => 'responder', 'uses' => 'DemandController@responder']);
+
+        //Mudar verbo
+        Route::post('/ask', ['as' => 'ask', 'uses' => 'DemandController@askSalve']);
+
+        Route::get('/encaminhar/{id}', ['as' => 'encaminhar', 'uses' => 'DemandController@encaminharMe']);
+
         Route::post('/store', ['as' => 'store', 'uses' => 'DemandController@store']);
+
+        //Mudar verbo
+        Route::post('/storeMe', ['as' => 'storeMe', 'uses' => 'DemandController@storeMe']);
 
         Route::get('/edit/{id}', ['as' => 'edit', 'uses' => 'DemandController@edit']);
 
@@ -47,7 +58,9 @@ Route::group(['prefix' => 'app', 'as' => 'app.', 'namespace' => 'App', 'middlewa
 
     });
 
-    Route::group(['prefix' => 'area', 'as' => 'area.'], function () {
+    Route::group(['prefix' => 'oportunidade', 'as' => 'area.'], function () {
+
+        Route::get('/visualizar', ['as' => 'show', 'uses' => 'AreaController@show']);
 
         Route::get('/', ['as' => 'index', 'uses' => 'AreaController@index']);
 
@@ -57,6 +70,11 @@ Route::group(['prefix' => 'app', 'as' => 'app.', 'namespace' => 'App', 'middlewa
 
 
     });
+
+
+
+
+
 
 });
 
