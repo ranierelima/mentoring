@@ -57,19 +57,25 @@ Route::group(['prefix' => 'app', 'as' => 'app.', 'namespace' => 'App', 'middlewa
         Route::post('/update', ['as' => 'update', 'uses' => 'DemandController@update']);
 
     });
-
-    Route::group(['prefix' => 'oportunidade', 'as' => 'area.'], function () {
-
-        Route::get('/visualizar', ['as' => 'show', 'uses' => 'AreaController@show']);
-
-        Route::get('/', ['as' => 'index', 'uses' => 'AreaController@index']);
-
-        Route::get('/create', ['as' => 'create', 'uses' => 'AreaController@create']);
-
-        Route::post('/store', ['as' => 'store', 'uses' => 'AreaController@store']);
-
-
+	
+	Route::group(['prefix' => 'eventos', 'as' => 'eventos.'], function () {
+        Route::get('/', ['as' => 'index', 'uses' => 'EventosController@index']);
+        Route::get('/create', ['as' => 'create', 'uses' => 'EventosController@create']);
+        Route::post('/store', ['as' => 'store', 'uses' => 'EventosController@store']);
+		
+        Route::get('/edit/{id}', ['as' => 'edit', 'uses' => 'EventosController@edit']);
+        Route::get('/show/{id}', ['as' => 'show', 'uses' => 'EventosController@show']);
     });
+	
+	Route::group(['prefix' => 'oportunidades', 'as' => 'oportunidades.'], function () {
+        Route::get('/', ['as' => 'index', 'uses' => 'OportunidadesController@index']);
+        Route::get('/create', ['as' => 'create', 'uses' => 'OportunidadesController@create']);
+        Route::post('/store', ['as' => 'store', 'uses' => 'OportunidadesController@store']);
+		
+        Route::get('/edit/{id}', ['as' => 'edit', 'uses' => 'OportunidadesController@edit']);
+        Route::get('/show/{id}', ['as' => 'show', 'uses' => 'OportunidadesController@show']);
+    });
+
 
 
 

@@ -32,6 +32,16 @@ class RepositoryServiceProvider extends ServiceProvider
             'Mentor\Repositories\UserRepository',
             'Mentor\Repositories\UserRepositoryEloquent'
         );
+		
+        $this->app->bind(
+            'Mentor\Repositories\EventosRepository',
+            'Mentor\Repositories\EventosRepositoryEloquent'
+        );
+		
+        $this->app->bind(
+            'Mentor\Repositories\OportunidadesRepository',
+            'Mentor\Repositories\OportunidadesRepositoryEloquent'
+        );
 
     }
 }

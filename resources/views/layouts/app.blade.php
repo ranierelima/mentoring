@@ -132,6 +132,13 @@
                             {{--</a>--}}
                         {{--@endif--}}
                     {{--@endif--}}
+					
+					<a href="{{ route('app.eventos.index') }}">
+                         <i class="fa fa-file-word-o"></i> <span>Eventos</span>
+ 					</a>
+ 					<a href="{{ route('app.oportunidades.index') }}">
+                         <i class="fa fa-file-word-o"></i> <span>Oportunidades</span>
+ 					</a>
                 </li>
 
             </ul>
