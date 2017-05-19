@@ -42,8 +42,12 @@
 
                                                     @if(Auth::check())
                                                         @if(Auth::user()->roles == 3)
+                                                            <a href="{{ route('app.oportunidades.edit', $oportunidade->id)  }}"><button class="btn btn-info btn-sm">Editar</button></a>
 
-                                                    <a href="{{ route('app.eventos.edit', $oportunidade->id)  }}"><button class="btn btn-info btn-sm">Editar</button></a>
+                                                            <form action="{{ route('app.oportunidades.delete')}}" method="post">
+                                                                <input type="hidden" name="oportunidade_id" value="{{$evento->id}}">
+                                                                <a href="#"><button type="submit" class="btn btn-info btn-sm">Excluir</button></a>
+                                                            </form>
                                                         @endif
                                                     @endif
                                                 </td>

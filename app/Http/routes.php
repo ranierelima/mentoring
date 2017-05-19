@@ -65,6 +65,8 @@ Route::group(['prefix' => 'app', 'as' => 'app.', 'namespace' => 'App', 'middlewa
 		
         Route::get('/edit/{id}', ['as' => 'edit', 'uses' => 'EventosController@edit']);
         Route::get('/show/{id}', ['as' => 'show', 'uses' => 'EventosController@show']);
+        Route::post('/update', ['as' => 'update', 'uses' => 'EventosController@update']);
+        Route::post('/delete', ['as' => 'delete', 'uses' => 'EventosController@delete']);
     });
 	
 	Route::group(['prefix' => 'oportunidades', 'as' => 'oportunidades.'], function () {
@@ -74,6 +76,8 @@ Route::group(['prefix' => 'app', 'as' => 'app.', 'namespace' => 'App', 'middlewa
 		
         Route::get('/edit/{id}', ['as' => 'edit', 'uses' => 'OportunidadesController@edit']);
         Route::get('/show/{id}', ['as' => 'show', 'uses' => 'OportunidadesController@show']);
+        Route::post('/update', ['as' => 'update', 'uses' => 'OportunidadesController@update']);
+        Route::post('/delete', ['as' => 'delete', 'uses' => 'OportunidadesController@delete']);
     });
 
 

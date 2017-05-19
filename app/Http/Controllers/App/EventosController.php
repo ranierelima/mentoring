@@ -80,4 +80,41 @@ class EventosController extends Controller
 
 		return view('eventos.show', compact('evento'));
     }
+    
+    
+    public function edit($id)
+    {
+        $evento = $this->eventosRepository->find($id);
+
+		return view('eventos.edit', compact('evento'));
+    }
+    public function update(Request $request)
+    {
+
+        /** Criar um service para isso... não misturar lógica com instâncias... toda persistência no bd usar try/catch */
+        try {
+            $this->eventosRepository->update([
+                'nome' => $request['nome'],
+                'local' => $request['local'],
+                'data_do_evento' => $request['data_do_evento'],
+                'telefone' => $request['telefone'],
+                'status' => 'pendente'
+            ], $request{'evento_id'});
+
+        } catch(Exception $exception) {
+            $exception->getMessage();
+        }
+
+        return redirect()->route('app.eventos.index');
+    }
+
+    public function delete(Request $request){
+        try{
+            $this->eventosRepository->delete($request['evento_id']);
+        }catch(Exception $exception) {
+            $exception->getMessage();
+        }
+
+        return redirect()->route('app.eventos.index');
+    }
 }
