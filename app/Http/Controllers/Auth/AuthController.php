@@ -2,7 +2,7 @@
 
 namespace Mentor\Http\Controllers\Auth;
 
-use Mentor\User;
+use Mentor\Models\User;
 use Validator;
 use Mentor\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;

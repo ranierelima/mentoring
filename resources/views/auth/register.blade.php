@@ -9,8 +9,14 @@
             <h2 class="mt-heading">Mentoring</h2>
         </div>
 
+        @if(Session::has('error'))
+            <div class="alert alert-danger">
+                <?=  Session::get('error') ?>
+            </div>
+        @endif
+
         <div class="mt-login-content">
-            <form method="POST" action="{{ url('/register') }}">
+            <form method="POST" action="{{ route('login.create') }}">
                 {{ csrf_field() }}
                 <div class="form-nome{{ $errors->has('name') ? ' has-error' : '' }}">
                     <input id="name" name="name" type="text" class="name" placeholder="Seu nome" />
@@ -45,7 +51,7 @@
                     <div class="submit">
                         <input type="submit" value="REGISTRAR"/>
                     </div>
-                    <ul>
+                    <ul style="display: none;">
                         <li><a href="#"><span class="face"></span></a></li>
                         <li><a href="#"><span class="twit"></span></a></li>
                         <li><a href="#"><span class="goog"></span></a></li>

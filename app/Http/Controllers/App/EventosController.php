@@ -7,23 +7,21 @@ use Mentor\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Mentor\Repositories\EventosRepositoryEloquent;
 use Mentor\Repositories\UserRepositoryEloquent;
+use Mentor\Services\EventosService;
 use Mockery\Exception;
 
 class EventosController extends Controller
 {
-	private $eventosRepository;
-    private $userRepository;
+    private $eventosService;
 
     /**
      * EventosController constructor.
      * @param EventosRepositoryEloquent $eventosRepository
      * @param UserRepositoryEloquent $userRepository
      */
-    public function __construct(EventosRepositoryEloquent $eventosRepository,
-                                UserRepositoryEloquent $userRepository)
+    public function __construct(EventosService $eventosService)
     {
-        $this->eventosRepository = $eventosRepository;
-        $this->userRepository = $userRepository;
+        $this->eventosService = $eventosService;
     }
 
     /**
@@ -31,11 +29,14 @@ class EventosController extends Controller
      */
     public function index()
     {
-
-        $eventos = $this->eventosRepository->paginate(5);
-
+        $eventos = $this->eventosService->listarEventos();
 		return view('eventos.index', compact('eventos'));
 	}
+
+	public function pendentes(){
+	    $eventos = $this->eventosService->eventosPendentes();
+        return view('eventos.pendentes', compact('eventos'));
+    }
 
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -51,22 +52,7 @@ class EventosController extends Controller
      */
     public function store(Request $request)
     {
-
-        /** Criar um service para isso... não misturar lógica com instâncias... toda persistência no bd usar try/catch */
-        try {
-            $this->eventosRepository->create([
-                'nome' => $request['nome'],
-                'local' => $request['local'],
-                'data_do_evento' => $request['data_do_evento'],
-                'telefone' => $request['telefone'],
-                'status' => 'pendente',
-                'user_id' => Auth::user()->id
-            ]);
-
-        } catch(Exception $exception) {
-            $exception->getMessage();
-        }
-
+        $this->eventosService->criarEvento($request->all());
         return redirect()->route('app.eventos.index');
     }
 
@@ -76,45 +62,34 @@ class EventosController extends Controller
      */
     public function show($id)
     {
-        $evento = $this->eventosRepository->find($id);
-
+        $evento = $this->eventosService->findById($id);
 		return view('eventos.show', compact('evento'));
     }
-    
-    
+
     public function edit($id)
     {
-        $evento = $this->eventosRepository->find($id);
-
+        $evento = $this->eventosService->findById($id);
 		return view('eventos.edit', compact('evento'));
     }
+
     public function update(Request $request)
     {
-
-        /** Criar um service para isso... não misturar lógica com instâncias... toda persistência no bd usar try/catch */
-        try {
-            $this->eventosRepository->update([
-                'nome' => $request['nome'],
-                'local' => $request['local'],
-                'data_do_evento' => $request['data_do_evento'],
-                'telefone' => $request['telefone'],
-                'status' => 'pendente'
-            ], $request{'evento_id'});
-
-        } catch(Exception $exception) {
-            $exception->getMessage();
-        }
-
+        $this->eventosService->atualizarEvento($request->all());
         return redirect()->route('app.eventos.index');
     }
 
     public function delete(Request $request){
-        try{
-            $this->eventosRepository->delete($request['evento_id']);
-        }catch(Exception $exception) {
-            $exception->getMessage();
-        }
-
+        $this->eventosService->deletarEvento($request->all());
         return redirect()->route('app.eventos.index');
+    }
+
+    public function aprovar(Request $request){
+        $this->eventosService->aprovarEvento($request->all());
+        return redirect()->route('app.eventos.pendentes');
+    }
+
+    public function rejeitar(Request $request){
+        $this->eventosService->rejeitarEvento($request->all());
+        return redirect()->route('app.eventos.pendentes');
     }
 }

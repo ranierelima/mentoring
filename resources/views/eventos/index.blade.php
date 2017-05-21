@@ -39,17 +39,7 @@
                                                 <td>{{ $evento->local }}</td>
                                                 <td>{{ $evento->data_do_evento }}</td>
                                                 <td>{{ $evento->telefone }}</td>
-                                               <!-- <td> {{ $evento->telefone }}
-                                                    @if($evento->status == 1)
-                                                        <div class="label label-info">
-                                                            {{ "Em espera" }}
-                                                        </div>
-                                                    @else
-                                                        <div class="label label-success">
-                                                            {{ "Avaliado" }}
-                                                        </div>
-                                                    @endif
-                                                </td>-->
+
                                                 <td>
                                                    <a href="{{ route('app.eventos.show', $evento->id)  }}"><button class="btn btn-success btn-sm">Visualizar</button></a>
 
@@ -60,7 +50,7 @@
 
                                                          <form action="{{ route('app.eventos.delete')}}" method="post">
                                                              <input type="hidden" name="evento_id" value="{{$evento->id}}">
-                                                             <a href="#"><button type="submit" class="btn btn-info btn-sm">Excluir</button></a>
+                                                             <a href="#"><button type="submit" class="btn btn-danger btn-sm">Excluir</button></a>
                                                          </form>
                                                         @endif
                                                     @endif

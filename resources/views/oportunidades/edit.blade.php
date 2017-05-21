@@ -53,7 +53,7 @@
                             
 
                                 <div class="col-md-2">
-                                    <button type="submit" class="btn btn-block btn-success btn-flat" style="margin-left: 110%; display:none;">Enviar</button>
+                                    <button type="submit" class="btn btn-block btn-success btn-flat" style="margin-left: 110%;"> Atualizar</button>
                                 </div>
 
 

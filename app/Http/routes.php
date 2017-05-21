@@ -20,9 +20,12 @@ Route::group(['prefix' => 'login', 'as' => 'login.'], function () {
 
     Route::get('/', ['as' => 'index', 'uses' => 'LoginController@index']);
 
+    Route::get('/register', ['as' => 'register', 'uses' => 'LoginController@register']);
+
     Route::get('/logout', ['as' => 'logout', 'uses' => 'LoginController@logout']);
 
     Route::post('/auth', ['as' => 'auth', 'uses' => 'LoginController@auth']);
+    Route::post('/create', ['as' => 'create', 'uses' => 'LoginController@create']);
 
 });
 
@@ -59,14 +62,22 @@ Route::group(['prefix' => 'app', 'as' => 'app.', 'namespace' => 'App', 'middlewa
     });
 	
 	Route::group(['prefix' => 'eventos', 'as' => 'eventos.'], function () {
+//	    Inicio rotas crud eventos
         Route::get('/', ['as' => 'index', 'uses' => 'EventosController@index']);
         Route::get('/create', ['as' => 'create', 'uses' => 'EventosController@create']);
         Route::post('/store', ['as' => 'store', 'uses' => 'EventosController@store']);
-		
+
         Route::get('/edit/{id}', ['as' => 'edit', 'uses' => 'EventosController@edit']);
         Route::get('/show/{id}', ['as' => 'show', 'uses' => 'EventosController@show']);
         Route::post('/update', ['as' => 'update', 'uses' => 'EventosController@update']);
         Route::post('/delete', ['as' => 'delete', 'uses' => 'EventosController@delete']);
+//      Fim rotas crud eventos
+
+//      Inicio rotas eventos pendentes
+        Route::get('/pendentes', ['as' => 'pendentes', 'uses' => 'EventosController@pendentes']);
+        Route::post('/aprovar', ['as' => 'aprovar', 'uses' => 'EventosController@aprovar']);
+        Route::post('/rejeitar', ['as' => 'rejeitar', 'uses' => 'EventosController@rejeitar']);
+//      Fim rotas eventos pendentes
     });
 	
 	Route::group(['prefix' => 'oportunidades', 'as' => 'oportunidades.'], function () {

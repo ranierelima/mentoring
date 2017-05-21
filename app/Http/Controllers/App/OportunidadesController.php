@@ -4,29 +4,23 @@ namespace Mentor\Http\Controllers\App;
 
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Mentor\Http\Controllers\Controller;
-use Mentor\Repositories\OportunidadesRepositoryEloquent;
-use Mentor\Repositories\UserRepositoryEloquent;
-use Mockery\Exception;
+use Mentor\Services\OportunidadesService;
 
 class OportunidadesController extends Controller
 {
-    private $oportunidadesRepository;
+    private $oportunidadesService;
 
-    private $userRepository;
 
-    public function __construct(OportunidadesRepositoryEloquent $oportunidadesRepository,
-                                UserRepositoryEloquent $userRepository)
+    public function __construct(OportunidadesService $oportunidadesService)
     {
 
-        $this->$oportunidadesRepository = $oportunidadesRepository;
-        $this->userRepository = $userRepository;
+        $this->oportunidadesService = $oportunidadesService;
     }
 
     public function index()
     {
-        $oportunidades = DB::select('select * from oportunidades order by id desc');
+        $oportunidades = $this->oportunidadesService->listarOportunidades();
         return view('oportunidades.index', compact('oportunidades'));
     }
 
@@ -37,55 +31,33 @@ class OportunidadesController extends Controller
 
     public function store(Request $request)
     {
-        DB::table('oportunidades')->insert([
-            'nome' => $request['nome'],
-            'local' => $request['local'],
-            'remuneracao' => $request['remuneracao'],
-            'descricao' => $request['descricao'],
-            'user_id' => Auth::user()->id
-        ]);
-//        $this->demandService->myDemandsCreate($request->all());
+
+        $this->oportunidadesService->criarOportunidade($request->all());
 
         return redirect()->route('app.oportunidades.index');
     }
 
     public function show($id)
     {
-        $oportunidade = DB::select('select * from oportunidades where id="' . $id . '"')[0];
+        $oportunidade = $this->oportunidadesService->findById($id);
         return view('oportunidades.show', compact('oportunidade'));
     }
 
     public function edit($id)
     {
-        $evento = $this->eventosRepository->find($id);
-
-        return view('eventos.edit', compact('evento'));
+        $oportunidade = $this->oportunidadesService->findById($id);
+        return view('oportunidades.edit', compact('oportunidade'));
     }
+
     public function update(Request $request)
     {
-        /** Criar um service para isso... não misturar lógica com instâncias... toda persistência no bd usar try/catch */
-        try {
-            $this->oportunidadesRepository->update([
-                'nome' => $request['nome'],
-                'local' => $request['local'],
-                'remuneracao' => $request['remuneracao'],
-                'descricao' => $request['descricao'],
-            ], $request{'oportunidade_id'});
-
-        } catch(Exception $exception) {
-            $exception->getMessage();
-        }
-
+        $this->oportunidadesService->atualizarOportunidade($request->all());
         return redirect()->route('app.oportunidades.index');
     }
 
-    public function delete(Request $request){
-        try{
-            $this->oportunidadesRepository->delete($request['oportunidade_id']);
-        }catch(Exception $exception) {
-            $exception->getMessage();
-        }
-
-        return redirect()->route('app.eventos.index');
+    public function delete(Request $request)
+    {
+        $this->oportunidadesService->deletarOportunidade($request->all());
+        return redirect()->route('app.oportunidades.index');
     }
 }
