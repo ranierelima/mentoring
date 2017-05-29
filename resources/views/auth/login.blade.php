@@ -8,7 +8,7 @@
             <div class="mentoring-icon logoicon logoicon--mentoring"></div>
             <h2 class="mt-heading">Mentoring</h2>
         </div>
-
+        <div style="margin:10px"></div>
         @if(Session::has('error'))
             <div class="alert alert-danger">
                 <?=  Session::get('error') ?>
@@ -16,33 +16,40 @@
         @endif
 
         <div class="mt-login-content">
-            <form method="POST" action="{{ route('login.auth') }}">
+
+            {!! Form::open(['method' => 'POST', 'route' => 'login.auth']) !!}
+
                 {{ csrf_field() }}
+
                 <div class="form-email{{ $errors->has('email') ? ' has-error' : '' }}">
-                    <input id="email" name="email" type="text" class="email" placeholder="E-mail" />
+
+                    {!! Form::text('email', null, ['class' => 'email',  'id' => 'email', 'placeholder' => 'E-mail']) !!}
+
                     @if ($errors->has('email'))
                         <span class="help-block"><strong>{{ $errors->first('email') }}</strong></span>
                     @endif
+
                 </div>
 
                 <div class="form-password{{ $errors->has('password') ? ' has-error' : '' }}">
-                    <input id="password" name="password" type="password" class="password" placeholder="Senha" />
+
+                    {!! Form::password('password', ['class' => 'password', 'id' => 'password', 'placeholder' => 'Senha']) !!}
+
                     @if ($errors->has('password'))
                         <span class="help-block"><strong>{{ $errors->first('password') }}</strong></span>
                     @endif
+
                 </div>
             
 
                 <div class="mt-login-btn">
                     <div class="submit">
-                        <input type="submit" value="ENTRAR"/>
+                       {!! Form::submit('ENTRAR') !!}
                     </div>
-
-
-            
                     <div class="clear"></div>
                 </div>
-            </form>
+
+            {!! Form::close() !!}
         </div>
     </div>
 
