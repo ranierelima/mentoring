@@ -5,6 +5,7 @@ namespace Mentor\Http\Controllers\App;
 
 use Illuminate\Http\Request;
 use Mentor\Http\Controllers\Controller;
+use Mentor\Models\User;
 use Mentor\Repositories\ActRepositoryEloquent;
 use Mentor\Repositories\DemandRepositoryEloquent;
 use Mentor\Repositories\PerfomanceRepositoryEloquent;
@@ -34,6 +35,10 @@ class DemandController extends Controller
      * @var ActRepositoryEloquent
      */
     private $actRepositoryEloquent;
+    /**
+     * @var User
+     */
+    private $user;
 
     /**
      * DemandController constructor.
@@ -42,12 +47,14 @@ class DemandController extends Controller
      * @param DemandService $demandService
      * @param PerfomanceRepositoryEloquent $perfomanceRepositoryEloquent
      * @param ActRepositoryEloquent $actRepositoryEloquent
+     * @param User $user
      */
     public function __construct(DemandRepositoryEloquent $demandRepository,
                                 UserRepositoryEloquent $userRepository,
                                 DemandService $demandService,
                                 PerfomanceRepositoryEloquent $perfomanceRepositoryEloquent,
-                                ActRepositoryEloquent $actRepositoryEloquent)
+                                ActRepositoryEloquent $actRepositoryEloquent,
+                                User $user)
     {
 
         $this->demandRepository = $demandRepository;
@@ -55,6 +62,7 @@ class DemandController extends Controller
         $this->demandService = $demandService;
         $this->perfomanceRepositoryEloquent = $perfomanceRepositoryEloquent;
         $this->actRepositoryEloquent = $actRepositoryEloquent;
+        $this->user = $user;
     }
 
 
@@ -114,12 +122,7 @@ class DemandController extends Controller
     {
         $demand = $this->demandRepository->find($id);
 
-        $mentoresFind = $this->userRepository->findByField('roles', 2);
-
-        /** COLOCAR NO SERVICE */
-        foreach ($mentoresFind as $mentor) {
-            $mentores = $mentor;
-        }
+        $mentores = $this->user->where('roles', 2)->pluck('name', 'id');
 
         return view('demandas.encaminhar', compact('demand', 'mentores'));
     }
@@ -128,15 +131,15 @@ class DemandController extends Controller
     {
         /** COLOCAR NO SERVICE **/
         //encontrar a demanda
-        $demandFind = $this->demandRepository
-                           ->find($request['demand_id']);
+        $demandFind = $this->demandRepository->find($request['demand_id']);
         //atualizar a demanda
-        $demandFind->mentor = $request['id'];
+        $demandFind->mentor = $request['mentor'];
         $demandFind->status = 2;
         $demandFind->save();
 
+
         //Atualizando a qtd do mentor
-        $selectMentor = $this->userRepository->find($request['id']);
+        $selectMentor = $this->userRepository->find($request['mentor']);
         // realmente ?? melhor com att?
         $selectMentor->qtd = $selectMentor->qtd + 1;
         $selectMentor->save();

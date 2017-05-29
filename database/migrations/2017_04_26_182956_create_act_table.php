@@ -15,10 +15,10 @@ class CreateActTable extends Migration
         Schema::create('acts', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->string('area');
+            $table->string('name');
             $table->string('type')->nullable();
-            $table->integer('demand_id')->unsigned();
-            $table->foreign('demand_id')->references('id')->on('demands');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
 
             $table->timestamps();
         });

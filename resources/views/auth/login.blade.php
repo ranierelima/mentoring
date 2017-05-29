@@ -9,6 +9,12 @@
             <h2 class="mt-heading">Mentoring</h2>
         </div>
 
+        @if(Session::has('error'))
+            <div class="alert alert-danger">
+                <?=  Session::get('error') ?>
+            </div>
+        @endif
+
         <div class="mt-login-content">
             <form method="POST" action="{{ route('login.auth') }}">
                 {{ csrf_field() }}
@@ -44,7 +50,7 @@
 
     <div class="mt-registro">
         <ul>
-            <li><p>Não possui <a href="{{ url('/register') }}">conta?</a></p></li>
+            <li><p>Não possui <a href="{{ route('login.register') }}">conta?</a></p></li>
             <span>|</span>
             <li><p>Esqueceu a <a href="{{ url('/password/reset') }}">senha?</a></p></li>
             <div class="clear"></div>

@@ -10,11 +10,11 @@ class Act extends Model implements Transformable
 {
     use TransformableTrait;
 
-    protected $fillable = ['area', 'demand_id', 'type'];
+    protected $fillable = ['name', 'user_id', 'type'];
 
-        public function demand()
+    public function user()
     {
-        return $this->hasOne(Demand::class, 'demand_id');
+        return $this->hasMany(User::class, 'user_id');
     }
 
 }

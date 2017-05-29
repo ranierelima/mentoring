@@ -2,69 +2,78 @@
 
 namespace Mentor\Http\Controllers\App;
 
-
 use Illuminate\Http\Request;
 use Mentor\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
-
-use Mentor\Repositories\ActRepositoryEloquent;
-use Mentor\Repositories\EventoRepositoryEloquent;
-use Mentor\Repositories\PerfomanceRepositoryEloquent;
-use Mentor\Repositories\UserRepositoryEloquent;
-use Mentor\Services\EventoService;
+use Mentor\Repositories\OportunidadesRepositoryEloquent;
+use Mentor\Services\OportunidadesService;
 
 class OportunidadesController extends Controller
 {
-	/*private $eventosRepository;
-	
-    private $userRepository;
-	
-    private $eventosService;
-	
-    private $perfomanceRepositoryEloquent;
-	
-    private $actRepositoryEloquent;
-	
-    public function __construct(EventoRepositoryEloquent $eventosRepository,
-                                UserRepositoryEloquent $userRepository,
-                                EventoService $eventosService,
-                                PerfomanceRepositoryEloquent $perfomanceRepositoryEloquent,
-                                ActRepositoryEloquent $actRepositoryEloquent)
+    private $oportunidadesService;
+    /**
+     * @var OportunidadesRepositoryEloquent
+     */
+    private $repositoryEloquent;
+
+
+    public function __construct(OportunidadesService $oportunidadesService, OportunidadesRepositoryEloquent $repositoryEloquent)
     {
 
-        $this->$eventosRepository = $eventosRepository;
-        $this->userRepository = $userRepository;
-        $this->$eventosService = $eventosService;
-        $this->perfomanceRepositoryEloquent = $perfomanceRepositoryEloquent;
-        $this->actRepositoryEloquent = $actRepositoryEloquent;
-    }*/
-	
-	public function index(){
-        $oportunidades = DB::select('select * from oportunidades order by id desc');
-		return view('oportunidades.index', compact('oportunidades'));
-	}
-	public function create(){
-		return view('oportunidades.cadastrar');
-	}
+        $this->oportunidadesService = $oportunidadesService;
+        $this->repositoryEloquent = $repositoryEloquent;
+    }
+
+    public function index()
+    {
+        $oportunidades = $this->repositoryEloquent->paginate(5);
+        return view('oportunidades.index', compact('oportunidades'));
+    }
+
+    public function create()
+    {
+        return view('oportunidades.cadastrar');
+    }
 
     public function store(Request $request)
     {
-		DB::table('oportunidades')->insert( [
-                'nome' => $request['nome'],
-                'local' => $request['local'],
-                'remuneracao' => $request['remuneracao'],
-                'descricao' => $request['descricao'],
-                'user_id' => Auth::user()->id
-		] );
-//        $this->demandService->myDemandsCreate($request->all());
+        // faz sentido, qualquer persistência é sempre uma boa jogar pro service tratar, boa!
+        $this->oportunidadesService->criarOportunidade($request->all());
 
         return redirect()->route('app.oportunidades.index');
     }
-	
+
     public function show($id)
     {
-        $oportunidade = DB::select('select * from oportunidades where id="'. $id .'"')[0];
-		return view('oportunidades.show', compact('oportunidade'));
+        // normalmente o eloquent que faz a parte de integração de dados
+        // não é o service, pois, você fez method que já existem!
+        // vou comentar o que voce fez, e mostrar o certo
+
+        // $oportunidade = $this->oportunidadesService->findById($id);
+        $oportunidade = $this->repositoryEloquent->find($id);
+        return view('oportunidades.show', compact('oportunidade'));
+    }
+
+    public function edit($id)
+    {
+        $oportunidade = $this->repositoryEloquent->find($id);
+        return view('oportunidades.edit', compact('oportunidade'));
+    }
+
+    public function update(Request $request)
+    {
+        // correto
+        $this->oportunidadesService->atualizarOportunidade($request->all());
+        return redirect()->route('app.oportunidades.index');
+    }
+
+    public function delete($id)
+    {
+        // Eu mudei aqui, normalmente eu trato os methods CRUDS, como se fosse um rest mesmo
+        // o ideal é o delete, apenas passar o $id da entidade que tem que ser excluída
+        // novamente, você não fez uso do eloquent, vou comentar e mostrar como é
+
+        //$this->oportunidadesService->deletarOportunidade($id);
+        $this->repositoryEloquent->delete($id);
+        return redirect()->route('app.oportunidades.index');
     }
 }

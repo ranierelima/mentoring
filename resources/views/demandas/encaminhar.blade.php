@@ -24,7 +24,8 @@
                             <div class="form-group">
                                 <label for="inputPassword3" class="col-sm-2 control-label">Selecione o mentor:</label>
                                 <div class="col-sm-6">
-<select class="form-control" name="id"><option value="{{ $mentores->id }}">{{ $mentores->name }} </option></select>                                </div>
+                                    {!! Form::select('mentor', $mentores, null, ['class' => 'form-control']) !!}
+                                </div>
                             </div>
 
                             <button class="btn btn-info">Enviar</button>

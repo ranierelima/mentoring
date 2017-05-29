@@ -125,13 +125,13 @@
                     <a href="{{ route('app.demand.index') }}">
                         <i class="fa fa-file-word-o"></i> <span>Demandas</span>
                     </a>
-                    {{--@if(Auth::check())--}}
-                        {{--@if(Auth::user()->roles == 3 )--}}
-                            {{--<a href="{{ route('app.oportunidade.index') }}">--}}
-                                {{--<i class="fa fa-file-word-o"></i> <span>Área de atuação</span>--}}
-                            {{--</a>--}}
-                        {{--@endif--}}
-                    {{--@endif--}}
+                    @if(Auth::check())
+                        @if(Auth::user()->roles == 3 )
+                            <a href="{{ route('app.mentor.index') }}">
+                                <i class="fa fa-file-word-o"></i> <span>Mentores</span>
+                            </a>
+                        @endif
+                    @endif
 					
 					<a href="{{ route('app.eventos.index') }}">
                          <i class="fa fa-file-word-o"></i> <span>Eventos</span>

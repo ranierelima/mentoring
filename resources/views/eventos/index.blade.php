@@ -31,40 +31,32 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                        @foreach($eventos as $demand)
+                                        @foreach($eventos as $evento)
                                             <tr>
 												
-                                                <td>{{ $demand->id }}</td>
-                                                <td>{{ $demand->nome }}</td>
-                                                <td>{{ $demand->local }}</td>
-                                                <td>{{ $demand->data_do_evento }}</td>
-                                                <td>{{ $demand->telefone }}</td>
-                                               <!-- <td> {{ $demand->telefone }}
-                                                    @if($demand->status == 1)
-                                                        <div class="label label-info">
-                                                            {{ "Em espera" }}
-                                                        </div>
-                                                    @else
-                                                        <div class="label label-success">
-                                                            {{ "Avaliado" }}
-                                                        </div>
-                                                    @endif
-                                                </td>-->
+                                                <td>{{ $evento->id }}</td>
+                                                <td>{{ $evento->nome }}</td>
+                                                <td>{{ $evento->local }}</td>
+                                                <td>{{ $evento->data_do_evento }}</td>
+                                                <td>{{ $evento->telefone }}</td>
+
                                                 <td>
-                                                   <a href="{{ route('app.eventos.show', $demand->id)  }}"><button class="btn btn-success btn-sm">Visualizar</button></a>
+                                                   <a href="{{ route('app.eventos.show', $evento->id)  }}"><button class="btn btn-success btn-sm">Visualizar</button></a>
 
                                                     @if(Auth::check())
-                                                        @if(Auth::user()->roles == 1)
+                                                        @if(Auth::user()->roles == 3)
 
-                                                    <a href="{{ route('app.eventos.edit', $demand->id)  }}"><button class="btn btn-info btn-sm">Editar</button></a>
+                                                         <a href="{{ route('app.eventos.edit', $evento->id)  }}"><button class="btn btn-info btn-sm">Editar</button></a>
+
+                                                         <a href="{{ route('app.eventos.delete', ['id' => $evento->id])  }}"><button class="btn btn-danger btn-sm">Excluir</button></a>
+                                                        <!-- CORRIGINDO... -->
+                                                         {{--<form action="{{ route('app.eventos.delete')}}" method="post">--}}
+                                                             {{--<input type="hidden" name="evento_id" value="{{$evento->id}}">--}}
+                                                             {{--<a href="#"><button type="submit" class="btn btn-danger btn-sm">Excluir</button></a>--}}
+                                                         {{--</form>--}}
                                                         @endif
                                                     @endif
 
-                                                    @if(Auth::check())
-                                                        @if(Auth::user()->roles == 2)
-                                                    <a href=""><button class="btn btn-primary btn-sm">Avaliar</button></a>
-                                                        @endif
-                                                    @endif
                                                 </td>
                                             </tr>
                                         @endforeach
