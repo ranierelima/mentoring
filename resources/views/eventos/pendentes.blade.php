@@ -41,6 +41,7 @@
                                         <td>{{ $evento->telefone }}</td>
 
                                         <td>
+                                            <!-- está sendo usado? -->
                                             @if(Auth::check() && Auth::user()->roles > 1)
                                                 <form action="{{ route('app.eventos.aprovar')}}" method="post">
                                                     <input type="hidden" name="evento_id" value="{{$evento->id}}">
