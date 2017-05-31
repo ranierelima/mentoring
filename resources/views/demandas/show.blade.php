@@ -19,88 +19,80 @@
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
-                    <form class="form-horizontal" method="POST" name="form" action="{{ route('app.demand.responder') }}">
-                        <div class="box-body">
-                            <input type="hidden" value="{{ $demand->id }}" name="demand_id">
+                    {!! Form::open(['class' => 'form-horizontal', 'method' => 'POST', 'name' => 'form', 'route' => 'app.demand.responder']) !!}
+
+                    <div class="box-body">
+
+                        {!! Form::hidden('demand_id', $demand->id) !!}
+
                             <div class="form-group">
-
-                                <div class="form-group">
-                                    <label for="inputPassword3" class="col-sm-2 control-label">E-mail</label>
-
-                                    <div class="col-sm-6">
-                                        <input type="text" class="form-control" id="inputPassword3" placeholder="E-mail" name="email" value="{{ $demand->email }}" disabled>
-                                    </div>
+                                {!! Form::label('email', 'E-mail', ['class' => 'col-sm-2 control-label']) !!}
+                                <div class="col-sm-6">
+                                    {!! Form::text('email', $demand->email, ['class' => 'form-control', 'name' => 'email', 'disabled' => 'disabled']) !!}
                                 </div>
-
-                                @if($demand->status == 2)
-                                    @if($mentor)
-                                        <div class="form-group">
-                                            <label for="inputPassword3" class="col-sm-2 control-label">Mentor</label>
-                                            <div class="col-sm-6">
-                                                <input type="text" class="form-control" id="inputPassword3" placeholder="E-mail" name="email" value="{{ $mentor->name }}" disabled>
-                                            </div>
-                                        </div>
-                                    @endif
-                                @endif
-
-                                <div class="form-group">
-                                    <label for="inputPassword3" class="col-sm-2 control-label">Título</label>
-
-                                    <div class="col-sm-6">
-                                        <input type="text" class="form-control" id="inputPassword3" placeholder="Título" name="title" value="{{ $demand->title }}" disabled>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="inputPassword3" class="col-sm-2 control-label">Assunto</label>
-
-                                    <div class="col-sm-6">
-                                        <input type="text" class="form-control" id="inputPassword3" placeholder="Assunto" name="subject" value="{{ $demand->subject }}" disabled>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="inputPassword3" class="col-sm-2 control-label">Dúvida</label>
-
-                                    <div class="col-sm-6">
-                                        {{ Form::textarea('doubt', $demand->doubt, ['class' => 'form-control', 'disabled' => 'disabled']) }}
-                                    </div>
-                                </div>
-
-                                @if($demand->status == 3)
-                                    <div class="form-group">
-                                        <h3 class="col-md-12" style="margin-left: 250px;">Respondido por:
-                                            @if($mentor)
-                                                {{ $mentor->name }}
-                                            @endif
-                                        </h3>
-                                        <label for="inputPassword3" class="col-sm-2 control-label">Resposta:</label>
-
-                                        <div class="col-sm-6">
-                                            {{ Form::textarea('answer', $demand->answer, ['class' => 'form-control', 'disabled' => 'disabled']) }}
-                                        </div>
-                                    </div>
-                                @endif
-
-                                @if(Auth::check())
-                                    @if(Auth::user()->roles == 2)
-                                        @if($demand->status == 2)
-                                            <div class="col-md-2">
-                                                 <button type="submit" class="btn btn-block btn-info btn-flat" style="margin-left: 110%;">Responder</button>
-                                            </div>
-                                         @endif
-                                    @endif
-                                @endif
-
                             </div>
-                        </div>
-                            <!-- /.box-body -->
-                            <!-- /.box-footer -->
-                    </form>
+
+
+                        @if($demand->status == 2)
+                            @if($mentor)
+                                    <div class="form-group">
+                                        {!! Form::label('mentor', 'Mentor', ['class' => 'col-sm-2 control-label']) !!}
+                                        <div class="col-sm-6">
+                                            {!! Form::text('mentor', $mentor->name, ['class' => 'form-control', 'name' => 'mentor', 'disabled' => 'disabled']) !!}
+                                        </div>
+                                    </div>
+                            @endif
+                        @endif
+
+                            <div class="form-group">
+                                {!! Form::label('title', 'Título', ['class' => 'col-sm-2 control-label']) !!}
+                                <div class="col-sm-6">
+                                    {!! Form::text('title', $demand->title, ['class' => 'form-control', 'name' => 'title', 'disabled' => 'disabled']) !!}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                {!! Form::label('subject', 'Assunto', ['class' => 'col-sm-2 control-label']) !!}
+                                <div class="col-sm-6">
+                                    {!! Form::text('subject', $demand->subject, ['class' => 'form-control', 'name' => 'subject', 'disabled' => 'disabled']) !!}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                {!! Form::label('doubt', 'Dúvida', ['class' => 'col-sm-2 control-label']) !!}
+                                <div class="col-sm-6">
+                                    {{ Form::textarea('doubt', $demand->doubt, ['class' => 'form-control', 'disabled' => 'disabled', 'style' => 'resize:none;']) }}
+                                </div>
+                            </div>
+
+                        @if($demand->status == 3)
+                                <div class="form-group">
+                                    <h3 class="col-md-12" style="margin-left: 250px;">Respondido por:
+                                        @if($mentor)
+                                            {{ $mentor->name }}
+                                        @endif
+                                    </h3>
+                                    {!! Form::label('answer', 'Resposta:', ['class' => 'col-sm-2 control-label']) !!}
+                                    <div class="col-sm-6">
+                                        {{ Form::textarea('answer', $demand->answer, ['class' => 'form-control', 'disabled' => 'disabled', 'style' => 'resize:none;']) }}
+                                    </div>
+                            </div>
+                        @endif
+
+                        @if(Auth::check())
+                            @if(Auth::user()->roles == 2)
+                                @if($demand->status == 2)
+                                        <div class="col-md-2">
+                                            {!! Form::submit('Enviar', ['class' => 'btn btn-block btn-success btn-flat', 'style' => 'margin-left: 110%;']) !!}
+                                        </div>
+                                @endif
+                            @endif
+                        @endif
+
+                    </div>
+                    {!! Form::close() !!}
                 </div>
-
             </div>
-
         </div>
     </section>
 

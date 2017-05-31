@@ -78,36 +78,34 @@ class DemandService
     public function myDemandsCreate(array $data)
     {
 
-        //Criando a demanda e selecionar o mentor vs qtd
-
-        //Ativa os filtros ??
-//        $Mentor = $this->_filterIsLowerUserDemands();
-        //Formata meu builder
-//        $idMentor = $this->formatMyBuildQuery($Mentor);
-
         try {
-
-//            //Atualizando a qtd do mentor
-//            $selectMentor = $this->userRepository->find($idMentor);
-//            // realmente ?? melhor com att?
-//            $selectMentor->qtd = $selectMentor->qtd + 1;
-//            $selectMentor->save();
 
             $this->demandRepository->create([
                 'title' => $data['title'],
                 'subject' => $data['subject'],
                 'doubt' => $data['doubt'],
-//                'student' => $data['student'],
                 'email' => $data['email'],     
                 'user_id' => $this->getMyUserById()
             ]);
 
-//            $this->actRepositoryEloquent->create([
-//                'area' => $data['area'],
-//                'demand_id' => $d->id
-//            ]);
+        } catch (QueryException $exception) {
+            $exception->getMessage();
+        }
 
+    }
 
+    public function myDemandsUpdate(array $data, $id)
+    {
+
+        try {
+
+            $this->demandRepository->update([
+                'title' => $data['title'],
+                'subject' => $data['subject'],
+                'doubt' => $data['doubt'],
+                'email' => $data['email'],
+                'user_id' => $this->getMyUserById()
+            ], $id);
 
         } catch (QueryException $exception) {
             $exception->getMessage();

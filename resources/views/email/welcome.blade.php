@@ -1,0 +1,1 @@
+<h1>bem vindo {{ $mentor->name }}</h1>

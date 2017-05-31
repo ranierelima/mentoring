@@ -8,10 +8,12 @@
             <div class="mentoring-icon logoicon logoicon--mentoring"></div>
             <h2 class="mt-heading">Mentoring</h2>
         </div>
+
         <div style="margin:10px"></div>
+
         @if(Session::has('error'))
             <div class="alert alert-danger">
-                <?=  Session::get('error') ?>
+                {{  Session::get('error') }}
             </div>
         @endif
 

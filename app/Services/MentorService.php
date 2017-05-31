@@ -12,6 +12,7 @@ namespace Mentor\Services;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Mentor\Repositories\ActRepositoryEloquent;
 use Mentor\Repositories\DemandRepositoryEloquent;
 use Mentor\Repositories\PerfomanceRepositoryEloquent;
@@ -55,9 +56,15 @@ class MentorService
                 'name' => $data['name'],
                 'email' => $data['email'],
                 'password' => bcrypt($data['password']),
-                'roles' => 2
+                'roles' => 2,
+                'remember_token' => str_random(10),
             ]);
             if($mentor):
+                // Criar um evento e jogar numa queue, se não vai dar lag
+                Mail::send('email.welcome', ['mentor' => $mentor], function ($message) use ($mentor) {
+                    $message->from('joaomarcusjesus@gmail.com', 'Your Application');
+                    $message->to($mentor->email)->subject('Cadastro feito com sucesso!');
+                });
                 return $mentor;
             endif;
         } catch(Exception $exception) {
