@@ -55,14 +55,15 @@ class MentorService
             $mentor = $this->userRepositoryEloquent->create([
                 'name' => $data['name'],
                 'email' => $data['email'],
-                'password' => bcrypt($data['password']),
+                // Alteração feita por causa do envio de e-mail
+                'password' => '123456',
                 'roles' => 2,
                 'remember_token' => str_random(10),
             ]);
             if($mentor):
                 // Criar um evento e jogar numa queue, se não vai dar lag
                 Mail::send('email.welcome', ['mentor' => $mentor], function ($message) use ($mentor) {
-                    $message->from('joaomarcusjesus@gmail.com', 'Your Application');
+                    $message->from('joaomarcusjesus@gmail.com', 'Mentoring - Unipê 2017');
                     $message->to($mentor->email)->subject('Cadastro feito com sucesso!');
                 });
                 return $mentor;
