@@ -76,6 +76,9 @@ Route::group(['prefix' => 'app', 'as' => 'app.', 'namespace' => 'App', 'middlewa
         Route::get('/mostrar/{id}', ['as' => 'show', 'uses' => 'MentorController@show']);
         Route::get('/conhecimento/{id}', ['as' => 'area', 'uses' => 'MentorController@area']);
         Route::post('/conhecimento/salvar', ['as' => 'area.store', 'uses' => 'MentorController@areaStore']);
+        Route::get('/editar/{id}', ['as' => 'edit', 'uses' => 'MentorController@edit']);
+        Route::post('/atualizar/{id}', ['as' => 'update', 'uses' => 'MentorController@update']);
+        Route::get('/deletar/{id}', ['as' => 'delete', 'uses' => 'MentorController@delete']);
     });
 });
 

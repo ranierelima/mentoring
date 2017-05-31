@@ -64,6 +64,34 @@ class MentorController extends Controller
         return view('mentor.show', compact('mentor', 'act'));
     }
 
+    public function edit($id)
+    {
+        $mentor = $this->userRepositoryEloquent->find($id);
+
+        return view('mentor.edit', compact('mentor'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $this->userRepositoryEloquent->update($request->all(), $id);
+
+        return redirect()->route('app.mentor.index');
+    }
+
+    public function delete($id)
+    {
+        $act = $this->actRepositoryEloquent->findByField('user_id', $id);
+
+        // Colocar no serviço
+        foreach($act as $item):
+            $this->actRepositoryEloquent->delete($item->id);
+        endforeach;
+
+        $this->userRepositoryEloquent->delete($id);
+
+        return redirect()->route('app.mentor.index');
+    }
+
     public function area($id)
     {
         $mentor = $this->userRepositoryEloquent->find($id);
