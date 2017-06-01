@@ -64,7 +64,7 @@ body {
 .mt-login input[type="text"], .mt-login input[type="password"] {
     outline: none;
     font-size: 13px;
-    color: #cecfd3;
+    color: black;
     padding: 20px 30px 10px 10px;
     margin: 0;
     width: 89.87%;
