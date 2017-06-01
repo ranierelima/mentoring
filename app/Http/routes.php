@@ -43,6 +43,18 @@ Route::group(['prefix' => 'app', 'as' => 'app.', 'namespace' => 'App', 'middlewa
         Route::post('/atualizar/{id}', ['as' => 'update', 'uses' => 'DemandController@update']);
     });
 
+    Route::group(['prefix' => 'perfil', 'as' => 'perfil.'], function () {
+
+        Route::get('/', ['as' => 'index', 'uses' => 'PerfilController@index']);
+        Route::get('/salvar', ['as' => 'store', 'uses' => 'PerfilController@store']);
+        Route::get('/atualizar', ['as' => 'update', 'uses' => 'PerfilController@update']);
+    });
+
+     Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.'], function () {
+
+        Route::get('/', ['as' => 'index', 'uses' => 'DashboardController@index']);
+    });
+
     Route::group(['prefix' => 'eventos', 'as' => 'eventos.'], function () {
 
         Route::get('/', ['as' => 'index', 'uses' => 'EventosController@index']);

@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Mentor\Repositories\UserRepositoryEloquent;
 
-
 class LoginController extends Controller
 {
 
@@ -18,7 +17,6 @@ class LoginController extends Controller
 
     public function __construct(UserRepositoryEloquent $eloquent)
     {
-
         $this->eloquent = $eloquent;
     }
 

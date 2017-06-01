@@ -39,7 +39,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="inputPassword3" class="col-sm-2 control-label">Remuneração</label>
+                                <label for="inputPassword3" class="col-sm-2 control-label">Data</label>
                                 <div class="col-sm-6">
 									<input type="date" class="form-control" id="inputDate3" placeholder="Data do evento" name="data_do_evento" value="{{$evento->data_do_evento}}" >
                                 </div>

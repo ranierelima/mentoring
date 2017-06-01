@@ -56,7 +56,7 @@ class MentorService
                 'name' => $data['name'],
                 'email' => $data['email'],
                 // Alteração feita por causa do envio de e-mail
-                'password' => '123456',
+                'password' => bcrypt($data['password']),
                 'roles' => 2,
                 'remember_token' => str_random(10),
             ]);

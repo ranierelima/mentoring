@@ -42,7 +42,6 @@
                     @endif
 
                 </div>
-            
 
                 <div class="mt-login-btn">
                     <div class="submit">

@@ -8,7 +8,7 @@
             <small>detalhes</small>
         </h1>
 	</section>
-	
+
 	<section class="content">
         <div class="row">
             <div class="col-xs-12">
@@ -33,11 +33,11 @@
                                 <tbody>
                                         @foreach($eventos as $evento)
                                             <tr>
-												
                                                 <td>{{ $evento->id }}</td>
                                                 <td>{{ $evento->nome }}</td>
                                                 <td>{{ $evento->local }}</td>
-                                                <td>{{ $evento->data_do_evento }}</td>
+                                                <!-- Não funciona -->
+                                                <td>{{ date('d/m/Y', strtotime($evento->data_do_evento)) }}</td>
                                                 <td>{{ $evento->telefone }}</td>
 
                                                 <td>
