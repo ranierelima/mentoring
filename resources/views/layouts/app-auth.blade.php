@@ -14,6 +14,7 @@
 
     <!-- Custom Theme files -->
     <link href="{{{ asset('/css/style-login.css') }}}" rel="stylesheet" type="text/css" media="all">
+    <link href="{{{ asset('/css/alert.css') }}}" rel="stylesheet" type="text/css" media="all">
 
 </head>
 <body>

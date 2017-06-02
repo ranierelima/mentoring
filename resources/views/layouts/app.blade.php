@@ -81,7 +81,7 @@
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="#" class="btn btn-default btn-flat">Perfil</a>
+                                    <a href="{{ route('app.perfil.index') }}" class="btn btn-default btn-flat">Perfil</a>
                                 </div>
                                 <div class="pull-right">
                                     <a href="{{ route('login.logout') }}" class="btn btn-default btn-flat">Sair</a>
@@ -131,6 +131,12 @@
                                 <i class="fa fa-file-word-o"></i> <span>Mentores</span>
                             </a>
                         @endif
+                    @endif
+
+                    @if(Auth::check() && Auth::user()->roles > 1)
+                        <a href="{{ route('app.eventos.pendentes') }}">
+                            <i class="fa fa-file-word-o"></i> <span>Eventos Pendentes</span>
+                        </a>
                     @endif
 					
 					<a href="{{ route('app.eventos.index') }}">

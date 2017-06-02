@@ -108,6 +108,15 @@ Route::group(['prefix' => 'app', 'as' => 'app.', 'namespace' => 'App', 'middlewa
     });
 
 
+    Route::group(['prefix' => 'perfil', 'as' => 'perfil.'], function () {
+
+        Route::get('/', ['as' => 'index', 'uses' => 'PerfilController@index']);
+        Route::post('/atualizarDados', ['as' => 'atualizarDados', 'uses' => 'PerfilController@atualizarDados']);
+        Route::post('/atualizarSenha', ['as' => 'atualizarSenha', 'uses' => 'PerfilController@atualizarSenha']);
+
+    });
+
+
 
 
 
