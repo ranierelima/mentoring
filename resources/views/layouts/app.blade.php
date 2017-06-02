@@ -135,7 +135,7 @@
 
                     @if(Auth::check() && Auth::user()->roles > 1)
                         <a href="{{ route('app.eventos.pendentes') }}">
-                            <i class="fa fa-file-word-o"></i> <span>Eventos Pendentes</span>
+                            <img src="{{asset('img/confirm-schedule.png')}}" > <span>Eventos Pendentes</span>
                         </a>
                     @endif
 					
