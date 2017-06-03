@@ -14,7 +14,13 @@
             <div class="col-xs-12">
                 <div class="box">
                     <div class="box-header">
-                        <h3 class="box-title">Listagem de oportunidades</h3>  <a href="{{ route('app.oportunidades.create') }}" class="btn btn-success  pull-right"> Cadastrar Oportunidade </a>
+                        <h3 class="box-title">Listagem de oportunidades</h3>
+
+                        @if(Auth::check())
+                            @if(Auth::user()->roles > 1)
+                                 <a href="{{ route('app.oportunidades.create') }}" class="btn btn-success  pull-right"> Cadastrar Oportunidade </a>
+                            @endif
+                        @endif
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
@@ -41,7 +47,7 @@
                                                    <a href="{{ route('app.oportunidades.show', $oportunidade->id)  }}"><button class="btn btn-success btn-sm">Visualizar</button></a>
 
                                                     @if(Auth::check())
-                                                        @if(Auth::user()->roles == 3)
+                                                        @if(Auth::user()->roles > 1)
                                                             <a href="{{ route('app.oportunidades.edit', $oportunidade->id)  }}"><button class="btn btn-info btn-sm">Editar</button></a>
                                                             <!-- Não é necessário enviar um req post, vou comentar isso e colocar o certo em baixo -->
                                                             {{--<form action="{{ route('app.oportunidades.delete')}}" method="post">--}}

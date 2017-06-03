@@ -11,7 +11,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
     <!-- Ionicons -->
-    <link rel="stylesheet" href="{{ asset('css/ionicons.min.css') }}">
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('plugins/datatables/dataTables.bootstrap.css') }}">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -132,24 +132,26 @@
                             </a>
                         @endif
                     @endif
+					
+					<a href="{{ route('app.eventos.index') }}">
+                         <i class="fa fa-file-word-o"></i> <span>Eventos</span>
+ 					</a>
 
                     @if(Auth::check() && Auth::user()->roles > 1)
                         <a href="{{ route('app.eventos.pendentes') }}">
                             <img src="{{asset('img/confirm-schedule.png')}}" > <span>Eventos Pendentes</span>
                         </a>
                     @endif
-					
-					<a href="{{ route('app.eventos.index') }}">
-                         <i class="fa fa-file-word-o"></i> <span>Eventos</span>
- 					</a>
-                    @if(Auth::check() && Auth::user()->roles > 1)
-                        <a href="{{ route('app.eventos.pendentes') }}">
-                            <i class="fa fa-file-word-o"></i> <span>Eventos Pendentes</span>
-                        </a>
-                    @endif
  					<a href="{{ route('app.oportunidades.index') }}">
                          <i class="fa fa-file-word-o"></i> <span>Oportunidades</span>
  					</a>
+
+
+                    @if(Auth::check() && Auth::user()->roles == 3)
+                        <a href="{{ route('app.alunos.index') }}">
+                            <i class="fa fa-users"></i> <span>Listar Alunos</span>
+                        </a>
+                    @endif
                 </li>
 
             </ul>

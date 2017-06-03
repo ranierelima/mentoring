@@ -115,6 +115,24 @@ class DemandService
 
     }
 
+    public function declinar($id){
+        try {
+
+            $demanda =  $this->demandRepository->find($id);
+            $mentor = $this->userRepository->find($demanda->mentor);
+
+            $mentor->qtd = $mentor->qtd - 1;
+            $mentor->save();
+
+            $demanda->mentor = null;
+            $demanda->status = 1;
+            $demanda->save();
+
+        } catch(QueryException $exception) {
+            $exception->getMessage();
+        }
+    }
+
     private function getMyAuth()
     {
         return Auth::check();
@@ -167,4 +185,6 @@ class DemandService
             return $myItems->id;
         }
     }
+
+
 }

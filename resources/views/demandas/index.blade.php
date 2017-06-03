@@ -65,6 +65,11 @@
                                                     <a href="{{ route('app.demand.encaminhar', $demand->id)  }}"><button class="btn btn-primary btn-sm">Encaminhar</button></a>
                                                 @endif
                                             @endif
+                                            @if(Auth::check())
+                                                @if(Auth::user()->roles == 2 && $demand->status == 2)
+                                                    <a href="{{ route('app.demand.declinar', $demand->id)  }}"><button class="btn btn-danger btn-sm">Declinar</button></a>
+                                                @endif
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach

@@ -167,4 +167,10 @@ class DemandController extends Controller
 
         return redirect()->route('app.demand.index');
     }
+
+    public function declinar($id)
+    {
+        $this->demandService->declinar($id);
+        return redirect()->route('app.demand.index');
+    }
 }

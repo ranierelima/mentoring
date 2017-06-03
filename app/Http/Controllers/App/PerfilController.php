@@ -40,7 +40,11 @@ class PerfilController extends Controller
 
     public function atualizarDados(Request $request)
     {
-        $retorno = $this->userService->emailJaCadastrado($request['email']);
+
+        $retorno = array();
+        if(  Auth::user()->email !== $request['email'] ) :
+            $retorno = $this->userService->emailJaCadastrado($request['email']);
+        endif;
 
         if( sizeof($retorno) === 0  ):
             $this->userService->atualizarDados($request->all());

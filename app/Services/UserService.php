@@ -79,4 +79,13 @@ class UserService
 
     }
 
+    public function listarAlunos()
+    {
+        try {
+            return DB::table('users')->where('roles','1')->paginate(10);
+        } catch (QueryException $q) {
+            $q->getMessage();
+        }
+    }
+
 }

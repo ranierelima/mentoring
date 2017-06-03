@@ -59,6 +59,8 @@ Route::group(['prefix' => 'app', 'as' => 'app.', 'namespace' => 'App', 'middlewa
 
         Route::post('/update', ['as' => 'update', 'uses' => 'DemandController@update']);
 
+        Route::get('/declinar/{id}', ['as' => 'declinar', 'uses' => 'DemandController@declinar']);
+
     });
 
     Route::group(['prefix' => 'eventos', 'as' => 'eventos.'], function () {
@@ -113,6 +115,13 @@ Route::group(['prefix' => 'app', 'as' => 'app.', 'namespace' => 'App', 'middlewa
         Route::get('/', ['as' => 'index', 'uses' => 'PerfilController@index']);
         Route::post('/atualizarDados', ['as' => 'atualizarDados', 'uses' => 'PerfilController@atualizarDados']);
         Route::post('/atualizarSenha', ['as' => 'atualizarSenha', 'uses' => 'PerfilController@atualizarSenha']);
+
+    });
+
+    Route::group(['prefix' => 'alunos', 'as' => 'alunos.'], function () {
+
+        Route::get('/', ['as' => 'index', 'uses' => 'AlunosController@index']);
+        Route::get('/show/{id}', ['as' => 'show', 'uses' => 'AlunosController@show']);
 
     });
 
