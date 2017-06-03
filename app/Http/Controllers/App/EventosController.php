@@ -20,10 +20,8 @@ class EventosController extends Controller
 
     /**
      * EventosController constructor.
-     * @param EventosService $eventosService
-     * @param EventosRepositoryEloquent $repositoryEloquent
-     * @internal param EventosRepositoryEloquent $eventosRepository
-     * @internal param UserRepositoryEloquent $userRepository
+     * @param EventosRepositoryEloquent $eventosRepository
+     * @param UserRepositoryEloquent $userRepository
      */
     public function __construct(EventosService $eventosService, EventosRepositoryEloquent $repositoryEloquent)
     {
