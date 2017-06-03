@@ -9,38 +9,54 @@
             <h2 class="mt-heading">Mentoring</h2>
         </div>
 
+        <div style="margin:10px"></div>
+
         @if(Session::has('error'))
             <div class="alert alert-danger">
-                <?=  Session::get('error') ?>
+                {{  Session::get('error') }}
             </div>
         @endif
 
         <div class="mt-login-content">
-            <form method="POST" action="{{ route('login.create') }}">
+
+                {!! Form::open(['method' => 'POST', 'route' => 'login.create']) !!}
+
                 {{ csrf_field() }}
+
                 <div class="form-nome{{ $errors->has('name') ? ' has-error' : '' }}">
-                    <input id="name" name="name" type="text" class="name" placeholder="Seu nome" />
+
+                    {!! Form::text('name', null, ['class' => 'name', 'id' => 'name', 'placeholder' => 'Seu nome']) !!}
+
                     @if ($errors->has('name'))
                         <span class="help-block"><strong>{{ $errors->first('name') }}</strong></span>
                     @endif
+
                 </div>
 
                 <div class="form-email{{ $errors->has('email') ? ' has-error' : '' }}">
-                    <input id="email" name="email" type="text" class="email" placeholder="E-mail" />
+
+                    {!! Form::text('email', null, ['class' => 'email', 'id' => 'email', 'placeholder' => 'E-mail']) !!}
+
                     @if ($errors->has('email'))
                         <span class="help-block"><strong>{{ $errors->first('email') }}</strong></span>
                     @endif
+
                 </div>
 
                 <div class="form-password{{ $errors->has('password') ? ' has-error' : '' }}">
-                    <input id="password" name="password" type="password" class="password" placeholder="Senha" />
+
+                    {!! Form::password('password', ['class' => 'password', 'id' => 'password', 'placeholder' => 'Senha']) !!}
+
                     @if ($errors->has('password'))
                         <span class="help-block"><strong>{{ $errors->first('password') }}</strong></span>
                     @endif
+
                 </div>
 
                 <div class="form-comfirma{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                    <input id="password_confirmation" name="password_confirmation" type="password" class="password-confirm" placeholder="Confirme a senha" />
+
+                    {!! Form::password('password_confirmation', ['class' => 'password_confirmation', 'id' => 'password_confirmation', 'placeholder' => 'Confirme a senha']) !!}
+
                     @if ($errors->has('password_confirmation'))
                         <span class="help-block"><strong>{{ $errors->first('password_confirmation') }}</strong></span>
                     @endif
@@ -66,8 +82,8 @@
     <div class="clear"></div>
 
     <div class="mt-registro">
-        <ul>
-            <li><p>Faça <a href="{{ url('/login') }}">login.</a></p></li>
+        <ul>{{ route('login.register') }}
+            <li><p>Faça <a href="{{ route('login') }}">login.</a></p></li>
             <span>|</span>
             <li><p>Esqueceu a <a href="{{ url('/password/reset') }}">senha?</a></p></li>
             <div class="clear"></div>

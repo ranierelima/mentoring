@@ -58,11 +58,23 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="{{ route('app.demand.show', $demand->id)  }}"><button class="btn btn-success btn-sm">Visualizar</button></a>
+                                            <a href="{{ route('app.demand.show', ['id' => $demand->id])  }}"><button class="btn btn-success btn-sm">Visualizar</button></a>
+
+                                            @if(Auth::check())
+                                                @if(Auth::user()->roles == 1 || Auth::user()->roles == 3 && $demand->status == 1)
+                                                    <a href="{{ route('app.demand.edit', ['id' => $demand->id])  }}"><button class="btn btn-warning btn-sm">Editar</button></a>
+                                                @endif
+                                            @endif
 
                                             @if(Auth::check())
                                                 @if(Auth::user()->roles == 3 && $demand->status == 1)
-                                                    <a href="{{ route('app.demand.encaminhar', $demand->id)  }}"><button class="btn btn-primary btn-sm">Encaminhar</button></a>
+                                                    <a href="{{ route('app.demand.encaminhar', ['id' => $demand->id])  }}"><button class="btn btn-primary btn-sm">Encaminhar</button></a>
+                                                @endif
+                                            @endif
+
+                                            @if(Auth::check())
+                                                @if(Auth::user()->roles == 1 || Auth::user()->roles == 3 && $demand->status == 1)
+                                                    <a href="{{ route('app.demand.destroy', ['id' => $demand->id])  }}"><button class="btn btn-danger btn-sm">Excluir</button></a>
                                                 @endif
                                             @endif
                                             @if(Auth::check())

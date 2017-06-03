@@ -40,12 +40,12 @@ class UsersTableSeeder extends Seeder
         ]);
 
 
-        factory(User::class, 10)->create()->each(function ($m) {
-            for ( $i=0; $i<=5; $i++ ) {
-                $m->demand()->save(factory(Demand::class)->make());
-            }
-        });
-
-        factory(Perfomance::class, 200)->create();
+//        factory(User::class, 10)->create()->each(function ($m) {
+//            for ( $i=0; $i<=5; $i++ ) {
+//                $m->demand()->save(factory(Demand::class)->make());
+//            }
+//        });
+//
+//        factory(Perfomance::class, 200)->create();
     }
 }

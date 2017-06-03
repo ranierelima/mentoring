@@ -96,9 +96,9 @@ class DemandController extends Controller
         return view('demandas.edit', compact('demand', 'perfomances'));
     }
 
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        $this->demandService->myDemandsUpdate($request->all());
+        $this->demandService->myDemandsUpdate($request->all(), $id);
 
         return redirect()->route('app.demand.index');
     }
@@ -106,13 +106,21 @@ class DemandController extends Controller
     public function show($id)
     {
         $demand = $this->demandRepository->find($id);
-//        $act = $this->actRepositoryEloquent->findByField('demand_id', $id);
+
         /** COLOCAR NO SERVICE */
         if($demand->mentor):
             $mentor = $this->userRepository->find($demand->mentor);
         endif;
 
         return view('demandas.show', compact('demand', 'mentor'));
+    }
+
+    public function destroy($id)
+    {
+        $demand = $this->demandRepository->find($id);
+        $demand->delete();
+
+        return redirect()->route('app.demand.index');
     }
 
 

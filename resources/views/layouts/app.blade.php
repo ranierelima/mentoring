@@ -15,7 +15,7 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('plugins/datatables/dataTables.bootstrap.css') }}">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
-         folder instead of downloading all of them to reduce the load. -->
+    folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="{{ asset('dist/css/AdminLTE.min.css') }}">
     <!-- iCheck -->
     <link rel="stylesheet" href="{{ asset('plugins/iCheck/flat/blue.css') }}">
@@ -24,127 +24,118 @@
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
-<div class="wrapper">
+    <div class="wrapper">
 
-    <header class="main-header">
-        <!-- Logo -->
-        <a href="{{ route('app.index')}}" class="logo">
-            <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><b>M</b></span>
-            <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b>Mentoring</b></span>
-        </a>
-        <!-- Header Navbar: style can be found in header.less -->
-        <nav class="navbar navbar-static-top">
-            <!-- Sidebar toggle button-->
-            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-                <span class="sr-only">Alternar navegação</span>
+        <header class="main-header">
+            <!-- Logo -->
+            <a href="{{ route('app.index')}}" class="logo">
+                <!-- mini logo for sidebar mini 50x50 pixels -->
+                <span class="logo-mini"><b>M</b></span>
+                <!-- logo for regular state and mobile devices -->
+                <span class="logo-lg"><b>Mentoring</b></span>
             </a>
+            <!-- Header Navbar: style can be found in header.less -->
+            <nav class="navbar navbar-static-top">
+                <!-- Sidebar toggle button-->
+                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">Alternar navegação</span>
+                </a>
 
-            <div class="navbar-custom-menu">
-                <ul class="nav navbar-nav">
-
-
-
-                    <!-- User Account: style can be found in dropdown.less -->
-                    <li class="dropdown user user-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="user-image" alt="User Image">
-                            <span class="hidden-xs">
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
 
 
-                                @if(Auth::check())
-                                    {{ Auth::user()->name }}
-                                @endif
 
-
-                                </span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <!-- User image -->
-                            <li class="user-header">
-                                <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
-
-                                <p>
-
+                        <!-- User Account: style can be found in dropdown.less -->
+                        <li class="dropdown user user-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="user-image" alt="User Image">
+                                <span class="hidden-xs">
                                     @if(Auth::check())
-                                        {{ Auth::user()->name }}
+                                         {{ Auth::user()->name }}
                                     @endif
-                                    {{--<small>Periodo: 2017.1</small>--}}
-                                </p>
-                            </li>
+                                </span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <!-- User image -->
+                                <li class="user-header">
+                                    <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
+                                    <p>
+                                        @if(Auth::check())
+                                            {{ Auth::user()->name }}
+                                        @endif
+                                        {{--<small>Periodo: 2017.1</small>--}}
+                                    </p>
+                                </li>
 
+                                <!-- Menu Footer-->
+                                <li class="user-footer">
+                                    <div class="pull-left">
+                                        <a href="{{ route('app.perfil.index') }}" class="btn btn-default btn-flat">Perfil</a>
+                                    </div>
+                                    <div class="pull-right">
+                                        <a href="{{ route('login.logout') }}" class="btn btn-default btn-flat">Sair</a>
+                                    </div>
+                                </li>
 
+                            </ul>
+                        </li>
 
+                        <!-- Control Sidebar Toggle Button -->
 
-
-                            <!-- Menu Footer-->
-                            <li class="user-footer">
-                                <div class="pull-left">
-                                    <a href="{{ route('app.perfil.index') }}" class="btn btn-default btn-flat">Perfil</a>
-                                </div>
-                                <div class="pull-right">
-                                    <a href="{{ route('login.logout') }}" class="btn btn-default btn-flat">Sair</a>
-                                </div>
-                            </li>
-
-                        </ul>
-                    </li>
-
-
-
-                    <!-- Control Sidebar Toggle Button -->
-
-                </ul>
-            </div>
-        </nav>
-    </header>
-    <!-- Left side column. contains the logo and sidebar -->
-    <aside class="main-sidebar">
-        <!-- sidebar: style can be found in sidebar.less -->
-        <section class="sidebar">
-            <!-- Sidebar user panel -->
-            <div class="user-panel">
-                <div class="pull-left image">
-                    <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
+                    </ul>
                 </div>
-                <div class="pull-left info">
-                    <p>
-                        @if(Auth::check())
-                            {{ Auth::user()->name }}
-                        @endif
-                    </p>
+            </nav>
+        </header>
+        <!-- Left side column. contains the logo and sidebar -->
+        <aside class="main-sidebar">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+                <!-- Sidebar user panel -->
+                <div class="user-panel">
+                    <div class="pull-left image">
+                        <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
+                    </div>
+                    <div class="pull-left info">
+                        <p>
+                            @if(Auth::check())
+                                {{ Auth::user()->name }}
+                            @endif
+                        </p>
 
-                    <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                        <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                    </div>
                 </div>
-            </div>
 
             <ul class="sidebar-menu">
                 <li class="header"> Menu</li>
                 <li class="active treeview">
+                    <a href="{{ route('app.dashboard.index') }}">
+                        <i class="fa fa-line-chart"></i> <span>Dashboard</span>
+                    </a>
                     <a href="{{ route('app.demand.index') }}">
-                        <i class="fa fa-file-word-o"></i> <span>Demandas</span>
+                        <img src="{{ asset('/img/raise-your-hand-to-ask.png') }}"> <span> Demandas</span>
                     </a>
                     @if(Auth::check())
                         @if(Auth::user()->roles == 3 )
                             <a href="{{ route('app.mentor.index') }}">
-                                <i class="fa fa-file-word-o"></i> <span>Mentores</span>
+                                <i class="fa fa-graduation-cap"></i>  <span>Mentores</span>
                             </a>
                         @endif
                     @endif
-					
-					<a href="{{ route('app.eventos.index') }}">
-                         <i class="fa fa-file-word-o"></i> <span>Eventos</span>
- 					</a>
+
+                    <a href="{{ route('app.eventos.index') }}">
+                        <i class="fa fa-calendar"></i>  <span>Eventos</span>
+                    </a>
 
                     @if(Auth::check() && Auth::user()->roles > 1)
                         <a href="{{ route('app.eventos.pendentes') }}">
                             <img src="{{asset('img/confirm-schedule.png')}}" > <span>Eventos Pendentes</span>
                         </a>
                     @endif
- 					<a href="{{ route('app.oportunidades.index') }}">
-                         <i class="fa fa-file-word-o"></i> <span>Oportunidades</span>
- 					</a>
+                    <a href="{{ route('app.oportunidades.index') }}">
+                        <i class="fa ion-network"></i> <span>Oportunidades</span>
+                    </a>
 
 
                     @if(Auth::check() && Auth::user()->roles == 3)
@@ -154,15 +145,15 @@
                     @endif
                 </li>
 
-            </ul>
-        </section>
-        <!-- /.sidebar -->
-    </aside>
+               </ul>
+           </section>
+           <!-- /.sidebar -->
+       </aside>
 
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+       <!-- Content Wrapper. Contains page content -->
+       <div class="content-wrapper">
         <!-- Main content -->
-            @yield('content')
+        @yield('content')
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->

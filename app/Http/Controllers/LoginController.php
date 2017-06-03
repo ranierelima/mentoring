@@ -4,11 +4,8 @@ namespace Mentor\Http\Controllers;
 
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
-use Mentor\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Mentor\Http\Controllers\Controller;
 use Mentor\Repositories\UserRepositoryEloquent;
-use Mockery\Exception;
 
 class LoginController extends Controller
 {
@@ -20,7 +17,6 @@ class LoginController extends Controller
 
     public function __construct(UserRepositoryEloquent $eloquent)
     {
-
         $this->eloquent = $eloquent;
     }
 
@@ -60,6 +56,7 @@ class LoginController extends Controller
             $this->eloquent->create($dadosUsuario);
 
             return redirect()->route('login.index');
+
         } catch (QueryException $e) {
 
             $error = strtolower($e->getMessage());

@@ -43,12 +43,14 @@
                                         <td>{{ $mentor->email }}</td>
                                         <td>
                                             <a href="{{ route('app.mentor.show', ['id' => $mentor->id])  }}"><button class="btn btn-success btn-sm">Visualizar</button></a>
+                                            <a href="{{ route('app.mentor.edit', ['id' => $mentor->id])  }}"><button class="btn btn-warning btn-sm">Editar</button></a>
+                                            <a href="{{ route('app.mentor.delete', ['id' => $mentor->id])  }}"><button class="btn btn-danger btn-sm">Excluir</button></a>
                                         </td>
                                     </tr>
                                 @endforeach
                                 </tbody>
                             </table>
-                            <!-- Paginação apenas para administrador ou mentor  !! Atualização 04/05 by jm !!  -->
+                            <!-- Paginação apenas para administrador !! Atualização 04/05 by jm !!  -->
                             @if(Auth::check())
                                 @if(Auth::user()->roles == 3)
                                     {{ $mentors->render() }}

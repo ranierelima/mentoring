@@ -14,7 +14,7 @@
                         <!-- small box -->
                         <div class="small-box bg-aqua">
                             <div class="inner">
-                                <h3>97</h3>
+                                <h3>{{ $demandas }}</h3>
 
                                 <p>Minhas Demandas</p>
                             </div>
@@ -30,9 +30,9 @@
                         <!-- small box -->
                         <div class="small-box bg-green">
                             <div class="inner">
-                                <h3>83<sup style="font-size: 20px">%</sup></h3>
+                                <h3>{{ $eventos }}</h3>
 
-                                <p>Banco de Demandas</p>
+                                <p>Eventos</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion"></i>
@@ -60,9 +60,9 @@
                                 <!-- small box -->
                                 <div class="small-box bg-aqua">
                                     <div class="inner">
-                                        <h3>97</h3>
+                                        <h3>{{ $demandas }}</h3>
 
-                                        <p>Demandas Abertas</p>
+                                        <p>Demandas</p>
                                     </div>
                                     <div class="icon">
                                         <i class="ion ion"></i>
@@ -141,9 +141,9 @@
                                 <!-- small box -->
                                 <div class="small-box bg-aqua">
                                     <div class="inner">
-                                        <h3>97</h3>
+                                        <h3>{{ $alunos }}</h3>
 
-                                        <p>Alunos</p>
+                                        <p>Total de alunos</p>
                                     </div>
                                     <div class="icon">
                                         <i class="ion ion-university"></i>
@@ -157,9 +157,9 @@
                                 <!-- small box -->
                                 <div class="small-box bg-green">
                                     <div class="inner">
-                                        <h3>83<sup style="font-size: 20px">%</sup></h3>
+                                        <h3>{{ $oportunidades }}</h3>
 
-                                        <p>Taxa de resposta</p>
+                                        <p>Total de Oportunidades</p>
                                     </div>
                                     <div class="icon">
                                         <i class="ion ion-stats-bars"></i>
@@ -171,9 +171,9 @@
                                 <!-- small box -->
                                 <div class="small-box bg-yellow">
                                     <div class="inner">
-                                        <h3>21</h3>
+                                        <h3>{{ $mentores }}</h3>
 
-                                        <p>Mentores</p>
+                                        <p>Total de mentores</p>
                                     </div>
                                     <div class="icon">
                                         <i class="ion ion-ribbon-b"></i>
@@ -185,9 +185,9 @@
                                 <!-- small box -->
                                 <div class="small-box bg-red">
                                     <div class="inner">
-                                        <h3>65</h3>
+                                        <h3>{{ $demandas }}</h3>
 
-                                        <p>Banco de Demandas</p>
+                                        <p>Total de demandas</p>
                                     </div>
                                     <div class="icon">
                                         <i class="ion ion-document-text"></i>

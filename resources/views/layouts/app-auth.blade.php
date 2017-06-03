@@ -10,11 +10,11 @@
     <meta name="keywords" content="mentoring, carreira, unipê" />
     <meta name="author" content="Anderson" />
 
-    <link href="{{{ asset('favicon.ico') }}}" rel="shortcut icon">
+    <link href="{{ asset('favicon.ico') }}" rel="shortcut icon">
 
     <!-- Custom Theme files -->
-    <link href="{{{ asset('/css/style-login.css') }}}" rel="stylesheet" type="text/css" media="all">
-    <link href="{{{ asset('/css/alert.css') }}}" rel="stylesheet" type="text/css" media="all">
+    <link href="{{ asset('/css/style-login.css') }}" rel="stylesheet" type="text/css" media="all">
+    <link href="{{ asset('/css/alert.css') }}" rel="stylesheet" type="text/css" media="all">
 
 </head>
 <body>

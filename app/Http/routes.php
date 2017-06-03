@@ -15,40 +15,37 @@ Route::get('/', function () {
     return redirect()->route('login.index');
 });
 
-
-Route::group(['prefix' => 'login', 'as' => 'login.'], function () {
+Route::group(['prefix' => 'logar', 'as' => 'login.'], function () {
 
     Route::get('/', ['as' => 'index', 'uses' => 'LoginController@index']);
-
-    Route::get('/register', ['as' => 'register', 'uses' => 'LoginController@register']);
-
-    Route::get('/logout', ['as' => 'logout', 'uses' => 'LoginController@logout']);
-
-    Route::post('/auth', ['as' => 'auth', 'uses' => 'LoginController@auth']);
-    Route::post('/create', ['as' => 'create', 'uses' => 'LoginController@create']);
-
+    Route::get('/criar', ['as' => 'register', 'uses' => 'LoginController@register']);
+    Route::get('/deslogar', ['as' => 'logout', 'uses' => 'LoginController@logout']);
+    Route::post('/logar', ['as' => 'auth', 'uses' => 'LoginController@auth']);
+    Route::post('/criar', ['as' => 'create', 'uses' => 'LoginController@create']);
 });
 
 Route::group(['prefix' => 'app', 'as' => 'app.', 'namespace' => 'App', 'middleware' => 'check'], function () {
 
-    Route::get('/', ['as' => 'index', 'uses' => 'DashboardController@index']);
 
+    Route::get('/', ['as' => 'index', 'uses' => 'DashboardController@index']);
 
     Route::group(['prefix' => 'demandas', 'as' => 'demand.'], function () {
 
         Route::get('/', ['as' => 'index', 'uses' => 'DemandController@index']);
-
-        Route::get('/create', ['as' => 'create', 'uses' => 'DemandController@create']);
-
-        //Mudar verbo
+        Route::get('/criar', ['as' => 'create', 'uses' => 'DemandController@create']);
         Route::post('/responder', ['as' => 'responder', 'uses' => 'DemandController@responder']);
-
-        //Mudar verbo
-        Route::post('/ask', ['as' => 'ask', 'uses' => 'DemandController@askSalve']);
-
+        Route::post('/pergunta', ['as' => 'ask', 'uses' => 'DemandController@askSalve']);
         Route::get('/encaminhar/{id}', ['as' => 'encaminhar', 'uses' => 'DemandController@encaminharMe']);
+        Route::post('/salvar', ['as' => 'store', 'uses' => 'DemandController@store']);
+        Route::post('/salve-me', ['as' => 'storeMe', 'uses' => 'DemandController@storeMe']);
+        Route::get('/editar/{id}', ['as' => 'edit', 'uses' => 'DemandController@edit']);
+        Route::get('/mostrar/{id}', ['as' => 'show', 'uses' => 'DemandController@show']);
+        Route::get('/excluir/{id}', ['as' => 'destroy', 'uses' => 'DemandController@destroy']);
+        Route::post('/atualizar/{id}', ['as' => 'update', 'uses' => 'DemandController@update']);
+        Route::get('/declinar/{id}', ['as' => 'declinar', 'uses' => 'DemandController@declinar']);
+    });
 
-        Route::post('/store', ['as' => 'store', 'uses' => 'DemandController@store']);
+       /* Route::post('/store', ['as' => 'store', 'uses' => 'DemandController@store']);
 
         //Mudar verbo
         Route::post('/storeMe', ['as' => 'storeMe', 'uses' => 'DemandController@storeMe']);
@@ -59,9 +56,9 @@ Route::group(['prefix' => 'app', 'as' => 'app.', 'namespace' => 'App', 'middlewa
 
         Route::post('/update', ['as' => 'update', 'uses' => 'DemandController@update']);
 
-        Route::get('/declinar/{id}', ['as' => 'declinar', 'uses' => 'DemandController@declinar']);
 
-    });
+
+    });*/
 
     Route::group(['prefix' => 'eventos', 'as' => 'eventos.'], function () {
 //	    Inicio rotas crud eventos
@@ -95,18 +92,15 @@ Route::group(['prefix' => 'app', 'as' => 'app.', 'namespace' => 'App', 'middlewa
 
 
     Route::group(['prefix' => 'mentores', 'as' => 'mentor.'], function () {
-
         Route::get('/', ['as' => 'index', 'uses' => 'MentorController@index']);
-        Route::get('/create', ['as' => 'create', 'uses' => 'MentorController@create']);
-        Route::post('/store', ['as' => 'store', 'uses' => 'MentorController@store']);
-        Route::get('/show/{id}', ['as' => 'show', 'uses' => 'MentorController@show']);
-
-        /** MENTOR VS AREA DE CONHECIMENTO */
-
+        Route::get('/criar', ['as' => 'create', 'uses' => 'MentorController@create']);
+        Route::post('/salvar', ['as' => 'store', 'uses' => 'MentorController@store']);
+        Route::get('/mostrar/{id}', ['as' => 'show', 'uses' => 'MentorController@show']);
         Route::get('/conhecimento/{id}', ['as' => 'area', 'uses' => 'MentorController@area']);
-
-        Route::post('/conhecimento/store', ['as' => 'area.store', 'uses' => 'MentorController@areaStore']);
-
+        Route::post('/conhecimento/salvar', ['as' => 'area.store', 'uses' => 'MentorController@areaStore']);
+        Route::get('/editar/{id}', ['as' => 'edit', 'uses' => 'MentorController@edit']);
+        Route::post('/atualizar/{id}', ['as' => 'update', 'uses' => 'MentorController@update']);
+        Route::get('/deletar/{id}', ['as' => 'delete', 'uses' => 'MentorController@delete']);
     });
 
 
@@ -118,16 +112,16 @@ Route::group(['prefix' => 'app', 'as' => 'app.', 'namespace' => 'App', 'middlewa
 
     });
 
+    Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.'], function () {
+        Route::get('/', ['as' => 'index', 'uses' => 'DashboardController@index']);
+    });
+
     Route::group(['prefix' => 'alunos', 'as' => 'alunos.'], function () {
 
         Route::get('/', ['as' => 'index', 'uses' => 'AlunosController@index']);
         Route::get('/show/{id}', ['as' => 'show', 'uses' => 'AlunosController@show']);
 
     });
-
-
-
-
 
 });
 
